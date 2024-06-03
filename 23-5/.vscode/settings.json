@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "pngle.h": "c",
+        "decode_png.h": "c",
+        "ili9340.h": "c",
+        "lcd.h": "c",
+        "i2cdev.h": "c",
+        "ds3231.h": "c",
+        "fontx.h": "c",
+        "sdcard.h": "c",
+        "myec.h": "c",
+        "bmpfile.h": "c",
+        "esp_idf_lib_helpers.h": "c",
+        "gps.h": "c"
+    }
+}
