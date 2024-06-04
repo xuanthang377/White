@@ -7,7 +7,7 @@
 
 #include "../Lib/myEC.h"
 #include "../Lib/nvs_interface.h"
-
+#include <esp_random.h>
 
 #include <stdio.h>
 #include <freertos/FreeRTOS.h>
@@ -244,7 +244,9 @@ float EC_get_value(float ADC_resolution, float v_ref, float temperature){
 
 	float voltage = convert_ADC_voltage(avg_adc, ADC_resolution, v_ref);
 	float value = (((voltage/RES2)/ECREF)*10.0);
-	 value = value * (float)EC_kvalueHigh;
+	value = value * (float)EC_kvalueHigh;
 	value = value/(1.0 + 0.0185*(temperature - 25.0));
-	return value;
+	value =value*1000.0;
+	value = 54879 * log(value)- 558626;
+	return value/1000.0;
 }

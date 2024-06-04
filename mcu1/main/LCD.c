@@ -202,11 +202,11 @@ void ArrowTest(TFT_t * dev, FontxFile *fx, uint16_t model, int width, int height
 	if ( b == 65 )
     {color = YELLOW;}
 	if ( b == 95 )
-    {color = GREEN;}
+    {color = ACX;}
 	if ( b == 125 )
-    {color = WHITE;}
+    {color = GREEN;}
 	if ( b == 155 )
-    {color = YELLOW;}
+    {color = ACY;}
     lcdDrawString(dev, fx, a, b, ascii, color);
 
 }

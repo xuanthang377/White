@@ -188,7 +188,7 @@ void ILI9341(void *pvParameters)
 		hieuEC = fabs(checkEC - data.EC);  
 		if(hieuEC == 0){
 		lcdDrawFillRect(&dev, 32, 32, 160, 64, BLACK);
-		sprintf((char *)asciiec, " %.2f ms/cm",data.EC);
+		sprintf((char *)asciiec, " %.2f g/l",data.EC);
 		ArrowTest(&dev, fx16G, model, CONFIG_WIDTH, CONFIG_HEIGHT,asciiec,30,65 );
 		}
 		checkEC = 1000;
@@ -381,7 +381,7 @@ void app_main(void)
 	// void ILI9341(NULL);    
 	//xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);   
 	while (1)
-	{+
+	{
     xTaskCreatePinnedToCore(ds3231_task, "ds3231_task", 2048 * 2, NULL, 4, &test_ds3231, tskNO_AFFINITY); 
 	// xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);               
 	// xTaskCreatePinnedToCore(send_data_task, "send_data_task", 2048 * 2, NULL, 4, &send_data, tskNO_AFFINITY);
