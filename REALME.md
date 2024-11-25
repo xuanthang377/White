@@ -7,9 +7,9 @@ B2: Dùng lệnh: idf.py fullclean
 B3: Đùng lệnh: idf.py set-target esp32s3
 B4: Dùng lệnh: idf.py menuconfig
 B5: Thực hiện cấu hình như trong ảnh 
-![alt text](file:///D:/wifi.png)
-![alt text](file:///D:/LCD.png)
-![alt text](file:///D:/flash.png)
+![alt text](images/wifi.png)
+![alt text](images/LCD.png)
+![alt text](images/flash.png)
 B6: Chạy lệnh: idf.py -p "COMX" flash monitor  // X là số COM trong máy 
 
 
@@ -17,10 +17,10 @@ B6: Chạy lệnh: idf.py -p "COMX" flash monitor  // X là số COM trong máy
 
 
 - Trong file main di chuyển đến 
-![alt text](file:///D:/main.png)
+![alt text](images/main.png)
 
 Ta comment  /*Luồng chương trình chính*/
-![alt text](file:///D:/main1.png)
+![alt text](images/main1.png)
 
 * Đối với pH 
 
@@ -36,7 +36,7 @@ B2: Build lại code và từ monitor cmd có được giá trị sau khi đo đ
 eg: I (363) pH TAG: Gia tri can luu lai la: 239999 
 
 B3: Lấy giá trị 239999  lưu vào biến nhớ  _pH_X_voltage (X là số) trong file mypH.c
-![alt text](file:///D:/ph.png)
+![alt text](images/ph.png)
 
 B4: Quay lại B1 đến khi calib xong 
 
@@ -55,7 +55,7 @@ B2: Build lại code và từ monitor cmd có được giá trị sau khi đo đ
 eg: I (363)  DO TAG: Gia tri can luu lai la: 239999 
 
 B3: Lấy giá trị 239999  lưu vào biến nhớ  DO_VX (X là số) trong file myDO.c
-![alt text](file:///D:/do.png)
+![alt text](images/do.png)
 
 B4: Quay lại B1 đến khi calib xong 
 
@@ -68,8 +68,8 @@ B1: Build lại code và từ monitor cmd có được giá trị sau khi đo đ
 eg: I (363)  DO TAG: Gia tri can luu lai la: 239999 
 
 B2: Lấy giá trị 239999  lưu vào biến nhớ  EC_kvalueHigh trong file myDO.c
-![alt text](file:///D:/ec.png)
+![alt text](images/ec.png)
 
 
 Sau khi calib xong mở lại luồng chương trình chính và đóng lại các câu lệnh calib 
-![alt text](file:///D:/all.png)
+![alt text](images/all.png)
