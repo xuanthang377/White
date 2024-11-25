@@ -1,0 +1,159 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403796e2
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x3fce3818,len:0x1750
+load:0x403c9700,len:0x4
+load:0x403c9704,len:0xc00
+load:0x403cc700,len:0x2e0c
+entry 0x403c9908
+[0;32mI (27) boot: ESP-IDF v5.1.4 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Nov 24 2024 11:54:51[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 40MHz[0m
+[0;32mI (39) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (44) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (54) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (65) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (80) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (87) boot:  3 storage0         Unknown data     01 82 00110000 00020000[0m
+[0;32mI (95) boot:  4 storage1         Unknown data     01 82 00130000 00010000[0m
+[0;32mI (102) boot:  5 storage2         Unknown data     01 82 00140000 000b0000[0m
+[0;32mI (110) boot: End of partition table[0m
+[0;32mI (114) esp_image: segment 0: paddr=00010020 vaddr=3c040020 size=12c98h ( 76952) map[0m
+[0;32mI (141) esp_image: segment 1: paddr=00022cc0 vaddr=3fc94300 size=02958h ( 10584) load[0m
+[0;32mI (145) esp_image: segment 2: paddr=00025620 vaddr=40374000 size=0a9f8h ( 43512) load[0m
+[0;32mI (160) esp_image: segment 3: paddr=00030020 vaddr=42000020 size=3c1ech (246252) map[0m
+[0;32mI (222) esp_image: segment 4: paddr=0006c214 vaddr=4037e9f8 size=05864h ( 22628) load[0m
+[0;32mI (235) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (236) boot: Disabling RNG early entropy source...[0m
+[0;32mI (247) cpu_start: Multicore app[0m
+[0;32mI (247) cpu_start: Pro cpu up.[0m
+[0;32mI (247) cpu_start: Starting app cpu, entry point is 0x403754e4[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (266) cpu_start: Pro cpu start user code[0m
+[0;32mI (266) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (266) cpu_start: Application information:[0m
+[0;32mI (269) cpu_start: Project name:     ili9340[0m
+[0;32mI (274) cpu_start: App version:      1[0m
+[0;32mI (278) cpu_start: Compile time:     Nov 24 2024 13:59:42[0m
+[0;32mI (284) cpu_start: ELF file SHA256:  cf8d432ed509b136...[0m
+[0;32mI (290) cpu_start: ESP-IDF:          v5.1.4[0m
+[0;32mI (295) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (300) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (305) cpu_start: Chip rev:         v0.2[0m
+[0;32mI (310) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (317) heap_init: At 3FC98010 len 00051700 (325 KiB): DRAM[0m
+[0;32mI (323) heap_init: At 3FCE9710 len 00005724 (21 KiB): STACK/DRAM[0m
+[0;32mI (330) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (336) heap_init: At 600FE010 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (343) spi_flash: detected chip: gd[0m
+[0;32mI (346) spi_flash: flash io: dio[0m
+[0;32mI (350) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (357) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (364) app_start: Starting scheduler on CPU0[0m
+[0;32mI (0) app_start: Starting scheduler on CPU1[0m
+[0;32mI (369) main_task: Started on CPU0[0m
+[0;32mI (379) main_task: Calling app_main()[0m
+[0;32mI (379) GPS: GPS ATGM336H Initializing...
+[0m
+[0;32mI (389) GPS: uart_param_config: 0
+[0m
+[0;32mI (389) GPS: uart_driver_install: 0
+[0m
+[0;32mI (399) GPS: uart_set_pin: 0
+[0m
+[0;32mI (399) GPS: GPS init success!
+[0m
+[0;32mI (409) MAIN: Initialize NVS[0m
+[0;32mI (419) MAIN: Initializing SPIFFS[0m
+[0;32mI (419) MAIN: Mount /spiffs to storage0 success[0m
+[0;32mI (419) MAIN: Partition size: total: 113201, used: 85089[0m
+[0;32mI (419) listSPIFFS: d_name=ILGH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (429) listSPIFFS: d_name=ILGH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (439) listSPIFFS: d_name=ILGH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (439) listSPIFFS: d_name=ILMH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (449) listSPIFFS: d_name=ILMH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (449) listSPIFFS: d_name=ILMH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (459) listSPIFFS: d_name=LATIN32B.FNT d_ino=0 d_type=1[0m
+[0;32mI (469) MAIN: Mount /icons to storage1 success[0m
+[0;32mI (469) MAIN: Partition size: total: 52961, used: 6024[0m
+[0;32mI (479) listSPIFFS: d_name=123.png d_ino=0 d_type=1[0m
+[0;32mI (479) listSPIFFS: d_name=123a.png d_ino=0 d_type=1[0m
+[0;32mI (489) listSPIFFS: d_name=youtube.png d_ino=0 d_type=1[0m
+[0;32mI (539) MAIN: Mount /images to storage2 success[0m
+[0;32mI (539) MAIN: Partition size: total: 655361, used: 57479[0m
+[0;32mI (539) listSPIFFS: d_name=123.bmp d_ino=0 d_type=1[0m
+[0;32mI (549) listSPIFFS: d_name=do.png d_ino=0 d_type=1[0m
+[0;32mI (549) listSPIFFS: d_name=ec.png d_ino=0 d_type=1[0m
+[0;32mI (559) listSPIFFS: d_name=ph.png d_ino=0 d_type=1[0m
+[0;32mI (559) listSPIFFS: d_name=rtc.png d_ino=0 d_type=1[0m
+[0;32mI (569) listSPIFFS: d_name=san.bmp d_ino=0 d_type=1[0m
+[0;32mI (569) listSPIFFS: d_name=temp.png d_ino=0 d_type=1[0m
+[0;32mI (599) MAIN: Disable Touch Contoller[0m
+[0;32mI (599) ILI9340: TFT_MOSI=18[0m
+[0;32mI (599) ILI9340: TFT_SCLK=17[0m
+[0;32mI (599) ILI9340: TFT_CS=12[0m
+[0;32mI (599) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (609) ILI9340: GPIO_DC=8[0m
+[0;32mI (609) gpio: GPIO[8]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (619) ILI9340: GPIO_RESET=11[0m
+[0;32mI (629) gpio: GPIO[11]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (739) ILI9340: GPIO_BL=40[0m
+[0;32mI (739) gpio: GPIO[40]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (739) ILI9340: spi_bus_initialize(TFT) ret=0 TFT_ID=1[0m
+Done
+Reading _pH_4_voltage from NVS ... Done
+[0;32mI (749) nvs interface: Done read key:pH4[0m
+[0;32mI (749) nvs interface: pH4= 1147000[0m
+Done
+_pH_4_voltage = 2021000
+Done
+[0;32mI (759) nvs interface: Done read key:pH6_86[0m
+[0;32mI (759) nvs interface: pH6_86= 900000[0m
+Done
+_pH_6_86_voltage = 1551000
+Done
+[0;32mI (769) nvs interface: Done read key:pH9[0m
+[0;32mI (779) nvs interface: pH9= 1551000[0m
+Done
+_pH_9_voltage = 1003000
+oka_9_6_86: -5.474452 	 b_9_6_86: 15.500875 
+a_6_86_4: -6.382979 	 b_6_86_4: 16.910000
+ Done
+Reading EC_kvalue from NVS ... Done
+[0;32mI (789) nvs interface: Done read key:K_value_EC_low[0m
+[0;32mI (799) nvs interface: K_value_EC_low= 1000[0m
+Done
+KVALUEADDR_LOW = 1000
+Done
+[0;32mI (809) nvs interface: Done read key:k_value_EC_high[0m
+[0;32mI (809) nvs interface: k_value_EC_high= 1085[0m
+Done
+EC_kvalueHigh = 2700
+Done
+Reading DO_0_VAL from NVS ... Done
+[0;32mI (819) nvs interface: Done read key:DO_0[0m
+[0;32mI (829) nvs interface: DO_0= 1250000[0m
+Done
+DO_0_VAL = 1250000
+Done
+[0;32mI (839) nvs interface: Done read key:DO_100[0m
+[0;32mI (839) nvs interface: DO_100= 1107000[0m
+Done
+DO_100_VAL = 1107000
+DO 0V  = 1250000
+DO 100 = 1107000
+DO a = -6.993007
+DO b = 8.741259
+[0] Raw ADC value: 7219, voltage: 0.9024 volts
+[0] Raw ADC value: 7253, voltage: 0.9067 volts
+[0] Raw ADC value: 7171, voltage: 0.8964 volts
+----------          ADC 7219       ---------
+DO :20.057262 

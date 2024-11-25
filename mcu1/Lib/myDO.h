@@ -25,7 +25,7 @@
 #define DO_0_VAL_ADDR "DO_0"
 #define DO_100_VAL_ADDR "DO_100"
 #define TAG_DO_calib "DO calib"
-
+#define TAG_DO "DO TAG"
 typedef enum{
 	do_calib_0,
 	do_calib_100
@@ -34,7 +34,7 @@ extern  uint16_t DO_Table[41] ;
 
 extern uint32_t DO_V0, DO_V100;
 extern float DO_a, DO_b;
-void init_param_DO(nvs_handle_t *pnvs_handle);
+void init_param_DO(nvs_handle_t pnvs_handle);
 void DO_Calib(float ADC_Vref
 		, float ADC_resolution
 		, nvs_handle_t nvs_handle

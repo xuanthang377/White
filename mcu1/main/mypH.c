@@ -50,9 +50,9 @@ double b_6_86_4 = 0.0;
 double a_9_6_86 = 1.0 ;
 double b_9_6_86 = 0.0;
 
-void init_param_pH(nvs_handle_t * nvsHandle){
+void init_param_pH(nvs_handle_t nvsHandle){
 	esp_err_t err;
-	err = nvs_open("storage", NVS_READWRITE, nvsHandle);
+	err = nvs_open("storage", NVS_READWRITE,&nvsHandle);
 	if (err != ESP_OK) {
 		printf("Error (%s) opening NVS handle!\n", esp_err_to_name(err));
 	} else {
@@ -65,6 +65,7 @@ void init_param_pH(nvs_handle_t * nvsHandle){
 		switch (err) {
 		case ESP_OK:
 			printf("Done\n");
+			_pH_4_voltage =2021000;                                      // Gia tri luu lai sau khi calib 
 			printf("_pH_4_voltage = %ld\n", _pH_4_voltage);
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
@@ -77,6 +78,7 @@ void init_param_pH(nvs_handle_t * nvsHandle){
 		switch (err) {
 		case ESP_OK:
 			printf("Done\n");
+			_pH_6_86_voltage = 1551000;                                 // Gia tri luu lai sau khi calib 
 			printf("_pH_6_86_voltage = %ld\n", _pH_6_86_voltage);
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
@@ -89,6 +91,7 @@ void init_param_pH(nvs_handle_t * nvsHandle){
 		switch (err) {
 		case ESP_OK:
 			printf("Done\n");
+			_pH_9_voltage=  1003000;                                   // Gia tri luu lai sau khi calib 
 			printf("_pH_9_voltage = %ld\n", _pH_9_voltage);
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
@@ -107,13 +110,13 @@ void init_param_pH(nvs_handle_t * nvsHandle){
 }
 
 void pH_function_9_6_86(){
-	a_9_6_86 = (9.0 - 6.86) / ((float)_pH_9_voltage/1000000.0 - (float)_pH_6_86_voltage/1000000.0);
-	b_9_6_86 = 6.86 - (a_9_6_86 *(float)_pH_6_86_voltage/1000000.0);
+	a_9_6_86 = (10.01 - 7.01) / ((float)_pH_9_voltage/1000000.0 - (float)_pH_6_86_voltage/1000000.0);
+	b_9_6_86 = 7.01 - (a_9_6_86 *(float)_pH_6_86_voltage/1000000.0);
 	printf("a_9_6_86: %f \t b_9_6_86: %f \n",(float)a_9_6_86,(float)b_9_6_86);
 }
 void pH_function_4_6_86(){
-	a_6_86_4 = (6.86 - 4.0) / ((float)_pH_6_86_voltage/1000000.0 - (float)_pH_4_voltage/1000000.0);
-	b_6_86_4 = 4 - (a_6_86_4 *(float)_pH_4_voltage/1000000.0);
+	a_6_86_4 = (7.01 - 4.01) / ((float)_pH_6_86_voltage/1000000.0 - (float)_pH_4_voltage/1000000.0);
+	b_6_86_4 = 4.01 - (a_6_86_4 *(float)_pH_4_voltage/1000000.0);
 	printf("a_6_86_4: %f \t b_6_86_4: %f\n ",(float)a_6_86_4,(float)b_6_86_4);
 }
 void pH_Calib( float ADC_VREF, float ADC_resolution
@@ -158,25 +161,20 @@ void pH_Calib( float ADC_VREF, float ADC_resolution
 	int buf [4];
 	
     for (t=0;t<4;t++){
-    // Read result
+  
     if (ads111x_get_value(&devices[0], &raw) == ESP_OK)
     {
         float voltage = gain_val / ADS111X_MAX_VALUE * raw;
         printf("[%u] Raw ADC value: %ld, voltage: %.04f volts\n", 0, raw, voltage);
-		// if(raw == 0){
-		// ads111x_get_value(&devices[0], &raw);}
 		buf[t] = raw;
 		vTaskDelay(pdMS_TO_TICKS(200));
-       // avg_adc = raw;
     }
-    else
-	{
-        //printf("[%u] Cannot read ADC value\n", 0);
-	}
+   
     }
 
-    for (int i = 0; i < 4; i++) {
-       for (int j = i + 1; j < 4; j++) {
+  
+	 for (int i = 0; i < 3; i++) {
+       for (int j = i + 1; j < 3; j++) {
          if (buf[i] > buf[j]) {
             int temp = buf[i];
             buf[i] = buf[j];
@@ -184,17 +182,12 @@ void pH_Calib( float ADC_VREF, float ADC_resolution
          }
         }
     }
-    avgValue =0;
-	for(int i = 1; i < 3 ; i ++){
-		avgValue+= buf[i];
-	}
-	avgValue  /= 2;
-	printf("ADC pH: %ld\n",avgValue);
+	avgValue = buf[1];
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-	ESP_LOGI(TAG_pH,"avgVal ADC: %d",(int)avgValue);
 	float voltage = convert_ADC_voltage(avgValue, ADC_resolution, ADC_VREF);
 	avgValue = (uint32_t)voltage * 1000;
-	ESP_LOGI(TAG_pH,"Saving param to NVS: %d",(int)avgValue);
+	ESP_LOGI(TAG_pH,"Gia tri can luu lai la: %d",(int)avgValue);
 	printf("key:%s\n",key);
 	err = write_nvs_func(nvsHandle, space_name, key, (uint32_t)avgValue);
 	ESP_LOGI(TAG_pH_Calib,"%s",esp_err_to_name(err));
@@ -236,37 +229,27 @@ float get_pH(nvs_handle_t nvsHandle, float ADC_VREF, float ADC_resolution){
 
     memset(devices, 0, sizeof(devices));
     gain_val = ads111x_gain_values[GAIN];
-    // Setup ICs
-   // for (size_t i = 0; i < CONFIG_EXAMPLE_DEV_COUNT; i++)
-   // {
+   
 	ESP_ERROR_CHECK(ads111x_init_desc(&devices[0], 0x48, I2C_PORT, 16, 15));
 
 	ESP_ERROR_CHECK(ads111x_set_mode(&devices[0], ADS111X_MODE_CONTINUOUS));    // Continuous conversion mode
 	ESP_ERROR_CHECK(ads111x_set_data_rate(&devices[0], ADS111X_DATA_RATE_32)); // 32 samples per second
 	ESP_ERROR_CHECK(ads111x_set_input_mux(&devices[0], ADS111X_MUX_0_GND));    // positive = AIN0, negative = GND
 	ESP_ERROR_CHECK(ads111x_set_gain(&devices[0], GAIN));
-    //}
+  
 	(void)addr; 
     uint8_t t ;  
 	int32_t raw = 0;
 	int buf [3];
     for (t=0;t<3;t++){
-    // Read result
-   // if (ads111x_get_value(&devices[0], &raw) == ESP_OK)
-   // {
+  
 		ads111x_get_value(&devices[0], &raw);
         float voltage = gain_val / ADS111X_MAX_VALUE * raw;
         printf("[%u] Raw ADC value: %ld, voltage: %.04f volts\n", 0, raw, voltage);
-		// if(raw == 0){
-		// ads111x_get_value(&devices[0], &raw);}
+		
 		buf[t] = raw;
 		  vTaskDelay(500/portTICK_PERIOD_MS);
-       // avg_adc = raw;
-    // }
-    // else
-	// {
-    //     //printf("[%u] Cannot read ADC value\n", 0);
-	// }
+      
     }
 
     for (int i = 0; i < 3; i++) {
@@ -278,13 +261,8 @@ float get_pH(nvs_handle_t nvsHandle, float ADC_VREF, float ADC_resolution){
          }
         }
     }
-
-	//for(int i = 1; i < 3 ; i ++){
-		avg_adc = buf[1];
-	// }
-	// avg_adc  /= 2;
+	avg_adc = buf[1];
     printf("----------          ADC %ld       ---------\n",avg_adc);
-   // printf("ADC pH: %ld\n",avg_adc);
 	pH_val = get_pH_value(avg_adc, nvsHandle,ADC_resolution, ADC_VREF);
 	return pH_val ;
 }

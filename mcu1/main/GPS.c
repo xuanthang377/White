@@ -42,7 +42,7 @@ GPS_data gps_get_value()
     esp_log_level_set(TAG, ESP_LOG_INFO);
     GPS_data gps_data = { 0 };
     const int rxBytes = uart_read_bytes(UART_GPS, GPS_temp_data, GPS_RX_BUF_SIZE, 1000 / portTICK_PERIOD_MS);
-    ESP_LOGE(TAG, "rxBytes: %d\n", rxBytes);
+    ESP_LOGW(TAG, "rxBytes: %d\n", rxBytes);
     if (rxBytes > 0)
     {
         ESP_LOGI(TAG, "GPS_temp_data: %s\n", GPS_temp_data); 

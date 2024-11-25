@@ -40,8 +40,8 @@ static float gain_val;
 uint32_t  EC_kvalueLow;
 uint32_t  EC_kvalueHigh;
 
-void EC_init_param(nvs_handle_t * nvs_handle){
-	esp_err_t err = nvs_open("storage", NVS_READWRITE, nvs_handle);
+void EC_init_param(nvs_handle_t  nvs_handle){
+	esp_err_t err = nvs_open("storage", NVS_READWRITE, &nvs_handle);
 	if (err != ESP_OK) {
 		printf("Error (%s) opening NVS handle!\n", esp_err_to_name(err));
 	} else {
@@ -49,28 +49,12 @@ void EC_init_param(nvs_handle_t * nvs_handle){
 
 		// Read
 		printf("Reading EC_kvalue from NVS ... ");
-		err = read_nvs(nvs_handle,"storage", KVALUEADDR_LOW, (uint32_t *)&EC_kvalueLow);
-
-		switch (err) {
-		case ESP_OK:
-			printf("Done\n");
-
-			printf("KVALUEADDR_LOW = %ld\n", EC_kvalueLow);
-			break;
-		case ESP_ERR_NVS_NOT_FOUND:
-			printf("The value is not initialized yet!\n");
-			EC_kvalueLow = 1000;
-			write_nvs_func(nvs_handle, "storage", KVALUEADDR_LOW, (uint32_t)EC_kvalueLow);
-			EC_kvalueLow = 1;
-			break;
-		default :
-			printf("Error (%s) reading!\n", esp_err_to_name(err));
-		}
+		
 		err = read_nvs(nvs_handle,"storage", KVALUEADDR_HIGH, (uint32_t *)&EC_kvalueHigh);
 		switch (err) {
 		case ESP_OK:
 			printf("Done\n");
-
+            EC_kvalueHigh= 2700;                                       // Gia tri luu lai sau khi calib 
 			printf("EC_kvalueHigh = %ld\n", EC_kvalueHigh);
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
@@ -99,23 +83,12 @@ void EC_calibrate(nvs_handle_t nvs_handle
 	char *key="";  
 	float EC_solution = 0.0;
 	uint32_t avgValue;
-	switch(EC_calib_type){
-	case EC_calib_low_1413:
-		ESP_LOGI(EC_TAG,"Start calib EC_calib_low_1413");
-		EC_solution = 1.413;
-		key = KVALUEADDR_LOW;
-		break;
-	case EC_calib_high_2_76:
-		ESP_LOGI(EC_TAG,"Start calib EC_calib_high_2_76");
-		EC_solution = 2.76;
-		key = KVALUEADDR_HIGH;
-		break;
-	case EC_calib_hight_12_88:
-		ESP_LOGI(EC_TAG,"Start calib EC_calib_hight_12_88");
-		EC_solution = 12.88;
-		key = KVALUEADDR_HIGH;
-		break;
-	}
+	
+	ESP_LOGI(EC_TAG,"Start calib EC_calib_hight_12_88");
+	EC_solution = 12.88;
+	key = KVALUEADDR_HIGH;
+		
+	
 
 	/////////////////////////////////////////////////////////
     memset(devices, 0, sizeof(devices));
@@ -141,20 +114,15 @@ void EC_calibrate(nvs_handle_t nvs_handle
     {
         float voltage = gain_val / ADS111X_MAX_VALUE * raw;
         printf("[%u] Raw ADC value: %ld, voltage: %.04f volts\n", 0, raw, voltage);
-		// if(raw == 0){
-		// ads111x_get_value(&devices[0], &raw);}
 		buf[t] = raw;
 		vTaskDelay(pdMS_TO_TICKS(200));
-       // avg_adc = raw;
+      
     }
-    else
-	{
-        //printf("[%u] Cannot read ADC value\n", 0);
-	}
     }
 
-    for (int i = 0; i < 4; i++) {
-       for (int j = i + 1; j < 4; j++) {
+
+	for (int i = 0; i < 3; i++) {
+       for (int j = i + 1; j < 3; j++) {
          if (buf[i] > buf[j]) {
             int temp = buf[i];
             buf[i] = buf[j];
@@ -162,22 +130,16 @@ void EC_calibrate(nvs_handle_t nvs_handle
          }
         }
     }
-    avgValue =0;
-	for(int i = 1; i < 3 ; i ++){
-		avgValue+= buf[i];
-	}
-	avgValue  /= 2;
-	printf("ADC EC: %ld\n",avgValue);
 
-
+    avgValue = buf[1];
 	/////////////////////////////////////////////////////////
-	avgValue = 2138;
 	float compECsolution = EC_solution* (1.0 + 0.0185 * (temperature - 25.0));
 	float voltage = convert_ADC_voltage(avgValue,ADC_resolution,ADC_Vref);
 	float KValueTemp = RES2 * ECREF * compECsolution / 1000.0 / voltage/10.0;
 	KValueTemp *= 1000.0;
+	ESP_LOGI(EC_TAG,"Gia tri can luu lai la: %d",(int)avgValue);
+	printf("key:%s\n",key);
 	err = write_nvs_func(nvs_handle, space_name, key, (uint32_t)KValueTemp);
-
 	ESP_LOGI(EC_TAG,"%s",(err!= ESP_OK)?"Error in save to nvs!":"Calib success!");
 	read_nvs(nvs_handle, space_name, key, &KValueTemp);
 }
@@ -191,15 +153,12 @@ float EC_get_value(float ADC_resolution, float v_ref, float temperature){
 	uint32_t avg_adc = 0;
     memset(devices, 0, sizeof(devices));
     gain_val = ads111x_gain_values[GAIN];
-    // Setup ICs
-    //for (size_t i = 0; i < CONFIG_EXAMPLE_DEV_COUNT; i++)
-    //{
 	ESP_ERROR_CHECK(ads111x_init_desc(&devices[0], 0x48, I2C_PORT, 16, 15));
 	ESP_ERROR_CHECK(ads111x_set_mode(&devices[0], ADS111X_MODE_CONTINUOUS));    // Continuous conversion mode
 	ESP_ERROR_CHECK(ads111x_set_data_rate(&devices[0], ADS111X_DATA_RATE_32)); // 32 samples per second
 	ESP_ERROR_CHECK(ads111x_set_input_mux(&devices[0], ADS111X_MUX_2_GND));    // positive = AIN0, negative = GND
 	ESP_ERROR_CHECK(ads111x_set_gain(&devices[0], GAIN));
-    //}
+   
 	(void)addr; 
     uint8_t t ;  
 	int32_t raw = 0;
@@ -208,22 +167,11 @@ float EC_get_value(float ADC_resolution, float v_ref, float temperature){
 
 
     for (t=0;t<3;t++){
-    // Read result
-   // if (ads111x_get_value(&devices[0], &raw) == ESP_OK)
-   // {
 		ads111x_get_value(&devices[0], &raw);
         float voltage = gain_val / ADS111X_MAX_VALUE * raw;
         printf("[%u] Raw ADC value: %ld, voltage: %.04f volts\n", 0, raw, voltage);
-		// if(raw == 0){
-		// ads111x_get_value(&devices[0], &raw);}
 		buf[t] = raw;
-		  vTaskDelay(500/portTICK_PERIOD_MS);
-       // avg_adc = raw;
-    // }
-    // else
-	// {
-    //     //printf("[%u] Cannot read ADC value\n", 0);
-	// }
+		vTaskDelay(500/portTICK_PERIOD_MS);
     }
 
     for (int i = 0; i < 3; i++) {
@@ -235,18 +183,13 @@ float EC_get_value(float ADC_resolution, float v_ref, float temperature){
          }
         }
     }
-
-	//for(int i = 1; i < 3 ; i ++){
-		avg_adc = buf[1];
-	//}
-	//avg_adc  /= 2;
+	avg_adc = buf[1];
     printf("----------          ADC %ld       ---------\n",avg_adc);
-
 	float voltage = convert_ADC_voltage(avg_adc, ADC_resolution, v_ref);
 	float value = (((voltage/RES2)/ECREF)*10.0);
 	value = value * (float)EC_kvalueHigh;
 	value = value/(1.0 + 0.0185*(temperature - 25.0));
 	value =value*1000.0;
 	value = 54879 * log(value)- 558626;
-	return value/1000.0;
+	return value;
 }

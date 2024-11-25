@@ -1,0 +1,350 @@
+ax chip rev:     v0ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40048839
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x3fce3818,len:0x1750
+load:0x403c9700,len:0x4
+load:0x403c9704,len:0xc00
+load:0x403cc700,len:0x2e0c
+entry 0x403c9908
+[0;32mI (27) boot: ESP-IDF v5.1.4 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Nov 24 2024 11:54:51[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 40MHz[0m
+[0;32mI (39) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (44) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (54) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (65) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (80) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (87) boot:  3 storage0         Unknown data     01 82 00110000 00020000[0m
+[0;32mI (95) boot:  4 storage1         Unknown data     01 82 00130000 00010000[0m
+[0;32mI (102) boot:  5 storage2         Unknown data     01 82 00140000 000b0000[0m
+[0;32mI (110) boot: End of partition table[0m
+[0;32mI (114) esp_image: segment 0: paddr=00010020 vaddr=3c050020 size=13988h ( 80264) map[0m
+[0;32mI (142) esp_image: segment 1: paddr=000239b0 vaddr=3fc94900 size=02908h ( 10504) load[0m
+[0;32mI (146) esp_image: segment 2: paddr=000262c0 vaddr=40374000 size=09d58h ( 40280) load[0m
+[0;32mI (160) esp_image: segment 3: paddr=00030020 vaddr=42000020 size=44050h (278608) map[0m
+[0;32mI (230) esp_image: segment 4: paddr=00074078 vaddr=4037dd58 size=06acch ( 27340) load[0m
+[0;32mI (245) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (245) boot: Disabling RNG early entropy source...[0m
+[0;32mI (256) cpu_start: Multicore app[0m
+[0;32mI (257) cpu_start: Pro cpu up.[0m
+[0;32mI (257) cpu_start: Starting app cpu, entry point is 0x40375530[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (275) cpu_start: Pro cpu start user code[0m
+[0;32mI (275) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (275) cpu_start: Application information:[0m
+[0;32mI (278) cpu_start: Project name:     ili9340[0m
+[0;32mI (283) cpu_start: App version:      1[0m
+[0;32mI (288) cpu_start: Compile time:     Nov 24 2024 13:59:42[0m
+[0;32mI (294) cpu_start: ELF file SHA256:  5525403deff81dae...[0m
+[0;32mI (300) cpu_start: ESP-IDF:          v5.1.4[0m
+[0;32mI (305) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (309) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (314) cpu_start: Chip rev:         v0.2[0m
+[0;32mI (319) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (326) heap_init: At 3FC98E60 len 000508B0 (322 KiB): DRAM[0m
+[0;32mI (332) heap_init: At 3FCE9710 len 00005724 (21 KiB): STACK/DRAM[0m
+[0;32mI (339) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (345) heap_init: At 600FE010 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (353) spi_flash: detected chip: gd[0m
+[0;32mI (356) spi_flash: flash io: dio[0m
+[0;32mI (360) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (367) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (374) app_start: Starting scheduler on CPU0[0m
+[0;32mI (0) app_start: Starting scheduler on CPU1[0m
+[0;32mI (378) main_task: Started on CPU0[0m
+[0;32mI (388) main_task: Calling app_main()[0m
+[0;32mI (388) GPS: GPS ATGM336H Initializing...
+[0m
+[0;32mI (398) GPS: uart_param_config: 0
+[0m
+[0;32mI (398) GPS: uart_driver_install: 0
+[0m
+[0;32mI (408) GPS: uart_set_pin: 0
+[0m
+[0;32mI (408) GPS: GPS init success!
+[0m
+[0;32mI (428) MAIN: Initialize NVS[0m
+[0;32mI (428) MAIN: Initializing SPIFFS[0m
+[0;32mI (438) MAIN: Mount /spiffs to storage0 success[0m
+[0;32mI (438) MAIN: Partition size: total: 113201, used: 85089[0m
+[0;32mI (438) listSPIFFS: d_name=ILGH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (438) listSPIFFS: d_name=ILGH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (448) listSPIFFS: d_name=ILGH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (458) listSPIFFS: d_name=ILMH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (458) listSPIFFS: d_name=ILMH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (468) listSPIFFS: d_name=ILMH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (468) listSPIFFS: d_name=LATIN32B.FNT d_ino=0 d_type=1[0m
+[0;32mI (478) MAIN: Mount /icons to storage1 success[0m
+[0;32mI (478) MAIN: Partition size: total: 52961, used: 6024[0m
+[0;32mI (488) listSPIFFS: d_name=123.png d_ino=0 d_type=1[0m
+[0;32mI (488) listSPIFFS: d_name=123a.png d_ino=0 d_type=1[0m
+[0;32mI (498) listSPIFFS: d_name=youtube.png d_ino=0 d_type=1[0m
+[0;32mI (548) MAIN: Mount /images to storage2 success[0m
+[0;32mI (548) MAIN: Partition size: total: 655361, used: 57479[0m
+[0;32mI (548) listSPIFFS: d_name=123.bmp d_ino=0 d_type=1[0m
+[0;32mI (558) listSPIFFS: d_name=do.png d_ino=0 d_type=1[0m
+[0;32mI (558) listSPIFFS: d_name=ec.png d_ino=0 d_type=1[0m
+[0;32mI (568) listSPIFFS: d_name=ph.png d_ino=0 d_type=1[0m
+[0;32mI (568) listSPIFFS: d_name=rtc.png d_ino=0 d_type=1[0m
+[0;32mI (578) listSPIFFS: d_name=san.bmp d_ino=0 d_type=1[0m
+[0;32mI (588) listSPIFFS: d_name=temp.png d_ino=0 d_type=1[0m
+[0;32mI (608) MAIN: Disable Touch Contoller[0m
+[0;32mI (608) ILI9340: TFT_MOSI=18[0m
+[0;32mI (608) ILI9340: TFT_SCLK=17[0m
+[0;32mI (608) ILI9340: TFT_CS=12[0m
+[0;32mI (608) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (618) ILI9340: GPIO_DC=8[0m
+[0;32mI (628) gpio: GPIO[8]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (638) ILI9340: GPIO_RESET=11[0m
+[0;32mI (638) gpio: GPIO[11]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (748) ILI9340: GPIO_BL=40[0m
+[0;32mI (748) gpio: GPIO[40]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (748) ILI9340: spi_bus_initialize(TFT) ret=0 TFT_ID=1[0m
+Done
+Reading _pH_4_voltage from NVS ... Done
+[0;32mI (758) nvs interface: Done read key:pH4[0m
+[0;32mI (758) nvs interface: pH4= 1147000[0m
+Done
+_pH_4_voltage = 2021000
+Done
+[0;32mI (768) nvs interface: Done read key:pH6_86[0m
+[0;32mI (768) nvs interface: pH6_86= 900000[0m
+Done
+_pH_6_86_voltage = 1551000
+Done
+[0;32mI (778) nvs interface: Done read key:pH9[0m
+[0;32mI (788) nvs interface: pH9= 1551000[0m
+Done
+_pH_9_voltage = 1003000
+oka_9_6_86: -5.474452 	 b_9_6_86: 15.500875 
+a_6_86_4: -6.382979 	 b_6_86_4: 16.910000
+ Done
+Reading EC_kvalue from NVS ... Done
+[0;32mI (798) nvs interface: Done read key:K_value_EC_low[0m
+[0;32mI (808) nvs interface: K_value_EC_low= 1000[0m
+Done
+KVALUEADDR_LOW = 1000
+Done
+[0;32mI (818) nvs interface: Done read key:k_value_EC_high[0m
+[0;32mI (818) nvs interface: k_value_EC_high= 1135[0m
+Done
+EC_kvalueHigh = 1135
+Done
+Reading DO_0_VAL from NVS ... Done
+[0;32mI (828) nvs interface: Done read key:DO_0[0m
+[0;32mI (838) nvs interface: DO_0= 1250000[0m
+Done
+DO_0_VAL = 1250000
+Done
+[0;32mI (848) nvs interface: Done read key:DO_100[0m
+[0;32mI (848) nvs interface: DO_100= 1107000[0m
+Done
+DO_100_VAL = 1107000
+DO 0V  = 1250000
+DO 100 = 1107000
+DO a = -6.993007
+DO b = 8.741259
+[0;32mI (858) ILI9340: Your TFT is ST7735[0m
+[0;32mI (868) ILI9340: Screen width:128[0m
+[0;32mI (868) ILI9340: Screen height:160[0m
+[0;32mI (878) ph_calib: Start calib pH 9[0m
+[0] Raw ADC value: 9474, voltage: 1.1843 volts
+[0] Raw ADC value: 8832, voltage: 1.1040 volts
+[0] Raw ADC value: 9381, voltage: 1.1727 volts
+[0] Raw ADC value: 9292, voltage: 1.1615 volts
+ADC pH1: 12412
+[0;32mI (1748) pH TAG: avgVal ADC: 12412[0m
+[0;32mI (1748) pH TAG: Saving param to NVS: 1551000[0m
+key:pH9
+ADC pH----: 1551000
+Done
+Done set
+Committing update in NVS ....Done Commit
+[0;32mI (1748) ph_calib: ESP_OK[0m
+[0;32mI (1758) ph_calib: Calib success![0m
+Done
+[0;32mI (1758) nvs interface: Done read key:pH9[0m
+[0;32mI (1758) nvs interface: pH9= 1551000[0m
+[0] Raw ADC value: 7270, voltage: 0.9088 volts
+[0] Raw ADC value: 12443, voltage: 1.5554 volts
+[0] Raw ADC value: 12439, voltage: 1.5549 volts
+----------          ADC 12439       ---------
+pH :6.988787
+[0] Raw ADC value: 12438, voltage: 1.5548 volts
+[0] Raw ADC value: 12431, voltage: 1.5539 volts
+[0] Raw ADC value: 12434, voltage: 1.5543 volts
+----------          ADC 12434       ---------
+pH :6.992208
+[0] Raw ADC value: 12433, voltage: 1.5542 volts
+[0] Raw ADC value: 12439, voltage: 1.5549 volts
+[0] Raw ADC value: 12435, voltage: 1.5544 volts
+----------          ADC 12435       ---------
+pH :6.991524
+[0] Raw ADC value: 12432, voltage: 1.5540 volts
+[0] Raw ADC value: 12439, voltage: 1.5549 volts
+[0] Raw ADC value: 12436, voltage: 1.5545 volts
+----------          ADC 12436       ---------
+pH :6.990839
+[0] Raw ADC value: 12436, voltage: 1.5545 volts
+[0] Raw ADC value: 12432, voltage: 1.5540 volts
+[0] Raw ADC value: 12445, voltage: 1.5557 volts
+----------          ADC 12436       ---------
+pH :6.990839
+[0] Raw ADC value: 12451, voltage: 1.5564 volts
+[0] Raw ADC value: 12444, voltage: 1.5555 volts
+[0] Raw ADC value: 12453, voltage: 1.5567 volts
+----------          ADC 12451       ---------
+pH :6.980575
+[0] Raw ADC value: 12489, voltage: 1.5612 volts
+[0] Raw ADC value: 12492, voltage: 1.5615 volts
+[0] Raw ADC value: 12497, voltage: 1.5622 volts
+----------          ADC 12492       ---------
+pH :6.952518
+[0] Raw ADC value: 12517, voltage: 1.5647 volts
+[0] Raw ADC value: 12527, voltage: 1.5659 volts
+[0] Raw ADC value: 12521, voltage: 1.5652 volts
+----------          ADC 12521       ---------
+pH :6.932673
+[0] Raw ADC value: 12530, voltage: 1.5663 volts
+[0] Raw ADC value: 12531, voltage: 1.5664 volts
+[0] Raw ADC value: 12540, voltage: 1.5675 volts
+----------          ADC 12531       ---------
+pH :6.925830
+[0] Raw ADC value: 12545, voltage: 1.5682 volts
+[0] Raw ADC value: 12536, voltage: 1.5670 volts
+[0] Raw ADC value: 12545, voltage: 1.5682 volts
+----------          ADC 12545       ---------
+pH :6.916250
+[0] Raw ADC value: 12546, voltage: 1.5683 volts
+[0] Raw ADC value: 12537, voltage: 1.5672 volts
+[0] Raw ADC value: 12537, voltage: 1.5672 volts
+----------          ADC 12537       ---------
+pH :6.921724
+[0] Raw ADC value: 12538, voltage: 1.5673 volts
+[0] Raw ADC value: 12548, voltage: 1.5685 volts
+[0] Raw ADC value: 12545, voltage: 1.5682 volts
+----------          ADC 12545       ---------
+pH :6.916250
+[0] Raw ADC value: 12543, voltage: 1.5679 volts
+[0] Raw ADC value: 12536, voltage: 1.5670 volts
+[0] Raw ADC value: 12544, voltage: 1.5680 volts
+----------          ADC 12543       ---------
+pH :6.917619
+[0] Raw ADC value: 12542, voltage: 1.5678 volts
+[0] Raw ADC value: 12533, voltage: 1.5667 volts
+[0] Raw ADC value: 12542, voltage: 1.5678 volts
+----------          ADC 12542       ---------
+pH :6.918303
+[0] Raw ADC value: 12539, voltage: 1.5674 volts
+[0] Raw ADC value: 12542, voltage: 1.5678 volts
+[0] Raw ADC value: 12533, voltage: 1.5667 volts
+----------          ADC 12539       ---------
+pH :6.920356
+[0] Raw ADC value: 12536, voltage: 1.5670 volts
+[0] Raw ADC value: 12529, voltage: 1.5662 volts
+[0] Raw ADC value: 12536, voltage: 1.5670 volts
+----------          ADC 12536       ---------
+pH :6.922409
+[0] Raw ADC value: 12530, voltage: 1.5663 volts
+[0] Raw ADC value: 12538, voltage: 1.5673 volts
+[0] Raw ADC value: 12533, voltage: 1.5667 volts
+----------          ADC 12533       ---------
+pH :6.924462
+[0] Raw ADC value: 12538, voltage: 1.5673 volts
+[0] Raw ADC value: 12532, voltage: 1.5665 volts
+[0] Raw ADC value: 12538, voltage: 1.5673 volts
+----------          ADC 12538       ---------
+pH :6.921040
+[0] Raw ADC value: 12536, voltage: 1.5670 volts
+[0] Raw ADC value: 12537, voltage: 1.5672 volts
+[0] Raw ADC value: 12527, voltage: 1.5659 volts
+----------          ADC 12536       ---------
+pH :6.922409
+[0] Raw ADC value: 12535, voltage: 1.5669 volts
+[0] Raw ADC value: 12528, voltage: 1.5660 volts
+[0] Raw ADC value: 12535, voltage: 1.5669 volts
+----------          ADC 12535       ---------
+pH :6.923093
+[0] Raw ADC value: 12529, voltage: 1.5662 volts
+[0] Raw ADC value: 12539, voltage: 1.5674 volts
+[0] Raw ADC value: 12533, voltage: 1.5667 volts
+----------          ADC 12533       ---------
+pH :6.924462
+[0] Raw ADC value: 12534, voltage: 1.5668 volts
+[0] Raw ADC value: 12539, voltage: 1.5674 volts
+[0] Raw ADC value: 12545, voltage: 1.5682 volts
+----------          ADC 12539       ---------
+pH :6.920356
+[0] Raw ADC value: 12546, voltage: 1.5683 volts
+[0] Raw ADC value: 12545, voltage: 1.5682 volts
+[0] Raw ADC value: 12538, voltage: 1.5673 volts
+----------          ADC 12545       ---------
+pH :6.916250
+[0] Raw ADC value: 12543, voltage: 1.5679 volts
+[0] Raw ADC value: 12541, voltage: 1.5677 volts
+[0] Raw ADC value: 12550, voltage: 1.5688 volts
+----------          ADC 12543       ---------
+pH :6.917619
+[0] Raw ADC value: 12549, voltage: 1.5687 volts
+[0] Raw ADC value: 12553, voltage: 1.5692 volts
+[0] Raw ADC value: 12550, voltage: 1.5688 volts
+----------          ADC 12550       ---------
+pH :6.912828
+[0] Raw ADC value: 12549, voltage: 1.5687 volts
+[0] Raw ADC value: 12556, voltage: 1.5695 volts
+[0] Raw ADC value: 12549, voltage: 1.5687 volts
+----------          ADC 12549       ---------
+pH :6.913513
+[0] Raw ADC value: 12553, voltage: 1.5692 volts
+[0] Raw ADC value: 12547, voltage: 1.5684 volts
+[0] Raw ADC value: 12556, voltage: 1.5695 volts
+----------          ADC 12553       ---------
+pH :6.910776
+[0] Raw ADC value: 12550, voltage: 1.5688 volts
+[0] Raw ADC value: 12547, voltage: 1.5684 volts
+[0] Raw ADC value: 12545, voltage: 1.5682 volts
+----------          ADC 12547       ---------
+pH :6.914881
+[0] Raw ADC value: 12555, voltage: 1.5694 volts
+[0] Raw ADC value: 12560, voltage: 1.5700 volts
+[0] Raw ADC value: 12553, voltage: 1.5692 volts
+----------          ADC 12555       ---------
+pH :6.909407
+[0] Raw ADC value: 12556, voltage: 1.5695 volts
+[0] Raw ADC value: 12555, voltage: 1.5694 volts
+[0] Raw ADC value: 12564, voltage: 1.5705 volts
+----------          ADC 12556       ---------
+pH :6.908722
+[0] Raw ADC value: 12566, voltage: 1.5708 volts
+[0] Raw ADC value: 12564, voltage: 1.5705 volts
+[0] Raw ADC value: 12558, voltage: 1.5698 volts
+----------          ADC 12564       ---------
+pH :6.903248
+[0] Raw ADC value: 12563, voltage: 1.5704 volts
+[0] Raw ADC value: 12568, voltage: 1.5710 volts
+[0] Raw ADC value: 12563, voltage: 1.5704 volts
+----------          ADC 12563       ---------
+pH :6.903933
+[0] Raw ADC value: 12562, voltage: 1.5703 volts
+[0] Raw ADC value: 12569, voltage: 1.5712 volts
+[0] Raw ADC value: 12565, voltage: 1.5707 volts
+----------          ADC 12565       ---------
+pH :6.902564
+[0] Raw ADC value: 12566, voltage: 1.5708 volts
+[0] Raw ADC value: 12571, voltage: 1.5714 volts
+[0] Raw ADC value: 12573, voltage: 1.5717 volts
+----------          ADC 12571       ---------
+pH :6.898458
+[0] Raw ADC value: 12573, voltage: 1.5717 volts
+[0] Raw ADC value: 12569, voltage: 1.5712 volts
+[0] Raw ADC value: 12575, voltage: 1.5719 volts
+----------          ADC 12573       ---------
+pH :6.897089

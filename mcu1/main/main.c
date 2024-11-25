@@ -7,6 +7,8 @@
 #include "esp_err.h"
 #include "esp_log.h"
 #include "esp_system.h"
+#include "esp_wifi.h"
+#include "esp_event.h"
 #include "nvs_flash.h"
 #include "nvs.h"
 #include "esp_vfs.h"
@@ -31,8 +33,16 @@
 #include "../Lib/nvs_interface.h"
 #include "../Lib/myDO.h"
 #include "../Lib/myTemp.h"
-#include "../Lib/UART.h"
 #include "../Lib/bmpfile.h"
+#include "../Lib/datamanager.h"
+#include "../Lib/UartComunication.h"
+#include "protocol_examples_common.h"
+#include "lwip/err.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+#include "lwip/netdb.h"
+#include "lwip/dns.h"
+
 nvs_handle_t nvsHandle;
 TaskHandle_t test_ads1115;
 TaskHandle_t test_ds3231;
@@ -45,7 +55,7 @@ volatile char buff_sd[126];
 volatile char name_file[50];
 volatile char time_buff[50];
 volatile char time_buff1[50];
-volatile data_type data;
+volatile dataSensor_st databkres;
 GPS_data gps_data;
 TFT_t dev;
 i2c_dev_t dev1;
@@ -67,6 +77,12 @@ double hieuEC ;
 double checkTemp = 0;
 double hieuTemp ;
 
+char REQUEST[512];
+char SUBREQUEST[100];
+char recv_buf[512];
+
+#define WEB_SERVER "api.thingspeak.com"
+#define WEB_PORT "80"
 
 
 #define pH_ON_PIN1 GPIO_NUM_35
@@ -77,12 +93,90 @@ double hieuTemp ;
 #define INTERVAL 400
 #define WAIT vTaskDelay(INTERVAL)
 static const char *TAG = "MAIN";
+static const char *TAGE = "THINGSPEAK";
 
-void send_data_task(void *arg)
+
+void http_get_task(void *pvParameters)
 {
-    uart_write_bytes(UART_UART, buff, strlen(buff));
-	ESP_LOGI(TAG, "UART init success!\n");
-	vTaskDelete(NULL);
+    const struct addrinfo hints = {
+        .ai_family = AF_INET,
+        .ai_socktype = SOCK_STREAM,
+    };
+    struct addrinfo *res;
+    struct in_addr *addr;
+    int s, r;
+
+   
+        int err = getaddrinfo(WEB_SERVER, WEB_PORT, &hints, &res);
+
+        if(err != 0 || res == NULL) {
+            ESP_LOGE(TAG, "DNS lookup failed err=%d res=%p", err, res);
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            
+        }
+
+        /* Code to print the resolved IP.
+
+           Note: inet_ntoa is non-reentrant, look at ipaddr_ntoa_r for "real" code */
+        addr = &((struct sockaddr_in *)res->ai_addr)->sin_addr;
+        ESP_LOGI(TAG, "DNS lookup succeeded. IP=%s", inet_ntoa(*addr));
+
+        s = socket(res->ai_family, res->ai_socktype, 0);
+        if(s < 0) {
+            ESP_LOGE(TAG, "... Failed to allocate socket.");
+            freeaddrinfo(res);
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+          
+        }
+        ESP_LOGI(TAG, "... allocated socket");
+
+        if(connect(s, res->ai_addr, res->ai_addrlen) != 0) {
+            ESP_LOGE(TAG, "... socket connect failed errno=%d", errno);
+            close(s);
+            freeaddrinfo(res);
+            vTaskDelay(4000 / portTICK_PERIOD_MS);
+           
+        }
+
+        ESP_LOGI(TAG, "... connected");
+        freeaddrinfo(res);
+
+        sprintf(SUBREQUEST, "api_key=Y60INP7S7GTHF6XM&field1=%f&field2=%f&field3=%f&field4=%f", databkres.temperature, databkres.PH, databkres.DO, databkres.EC);
+        sprintf(REQUEST, "POST /update HTTP/1.1\nHOST: api.thingspeak.com\nConnection: close\nContent-Type:application/x-www-form-urlencoded\nContent-Length:%d\n\n%s\n",strlen(SUBREQUEST),SUBREQUEST);
+        
+        if (write(s, REQUEST, strlen(REQUEST)) < 0) {
+            ESP_LOGE(TAG, "... socket send failed");
+            close(s);
+            vTaskDelay(4000 / portTICK_PERIOD_MS);
+           
+        }
+        ESP_LOGI(TAG, "... socket send success");
+
+        struct timeval receiving_timeout;
+        receiving_timeout.tv_sec = 5;
+        receiving_timeout.tv_usec = 0;
+        if (setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &receiving_timeout,
+                sizeof(receiving_timeout)) < 0) {
+            ESP_LOGE(TAG, "... failed to set socket receiving timeout");
+            close(s);
+            vTaskDelay(4000 / portTICK_PERIOD_MS);
+           
+        }
+        ESP_LOGI(TAG, "... set socket receiving timeout success");
+
+        /* Read HTTP response */
+        do {
+            bzero(recv_buf, sizeof(recv_buf));
+            r = read(s, recv_buf, sizeof(recv_buf)-1);
+            for(int i = 0; i < r; i++) {
+                putchar(recv_buf[i]);
+            }
+        } while(r > 0);
+
+        close(s);
+        ESP_LOGI(TAG, "Starting again!");
+		vTaskDelete(NULL);
+    
 }
 
 static void GPS(void *pvParameters)
@@ -96,34 +190,23 @@ static void GPS(void *pvParameters)
 
 void sd_task(void *arg)
 {
-	
 	esp_err_t err_init = sd_card_intialize();
-		//sprintf(name_file, "log_3_7");
-	if (name_file == NULL)
-	{
-		sprintf(name_file, "null.txt");
-	}
 	strcpy(buff_sd, buff);
 	strcat(buff_sd, "\n");
 	printf("buff_sd:%s", buff_sd);
 	esp_err_t err = sd_write_file(name_file, buff_sd);
 	if (err != ESP_OK)
 	{
-		ESP_LOGI(__func__, "Save data error");
+		ESP_LOGI(SD_TAG, "Save data error");
 	}
 	else
 	{
-		ESP_LOGI(__func__, "Save data success");
+		ESP_LOGI(SD_TAG, "Save data success");
 	}
 	if (err_init == ESP_OK)
 	{
 		sd_deinitialize();
 	}
-	// while (1)
-	// {
-
-	// 	vTaskDelay(50 / portTICK_PERIOD_MS);
-	// }
 	printf("END sd_task\n");
 	vTaskDelete(NULL);
 }
@@ -165,17 +248,6 @@ void ILI9341(void *pvParameters)
 	PNGTest(&dev, file, 25, 230);
 
 	while(1) {
-		
-		
-		
-	
-		
-		// strcpy(file, "/images/san.bmp");
-        // BMPTest(&dev, file, CONFIG_WIDTH, CONFIG_HEIGHT);
-        // WAIT;
-
-		
-				
 				
         ds3231_get_time(&dev1, &time1);
 		sprintf(time_buff1,"%02d:%02d:%02d", time1.tm_hour, time1.tm_min, time1.tm_sec);
@@ -185,34 +257,34 @@ void ILI9341(void *pvParameters)
 		ascii[sizeof(ascii) - 1] = '\0'; // Đảm bảo kết thúc chuỗi
 		ArrowTest(&dev, fx24G, model, CONFIG_WIDTH, CONFIG_HEIGHT,ascii,17,30 );
         
-		hieuEC = fabs(checkEC - data.EC);  
+		hieuEC = fabs(checkEC - databkres.EC);  
 		if(hieuEC == 0){
 		lcdDrawFillRect(&dev, 32, 32, 160, 64, BLACK);
-		sprintf((char *)asciiec, " %.2f g/l",data.EC);
+		sprintf((char *)asciiec, " %.2f mg/l",databkres.EC);
 		ArrowTest(&dev, fx16G, model, CONFIG_WIDTH, CONFIG_HEIGHT,asciiec,30,65 );
 		}
 		checkEC = 1000;
 
-		hieuDO = fabs(checkDO - data.DO);
+		hieuDO = fabs(checkDO - databkres.DO);
 		if(hieuDO == 0){
 		lcdDrawFillRect(&dev, 32, 64, 160, 96, BLACK);
-		sprintf((char *)asciido, " %.2f mg/l",data.DO);
+		sprintf((char *)asciido, " %.2f mg/l",databkres.DO);
 		ArrowTest(&dev, fx16G, model, CONFIG_WIDTH, CONFIG_HEIGHT,asciido,30,95 );
 		}
 		checkDO = 1000;
 
-        hieuPH = fabs(checkpH - data.pH);
+        hieuPH = fabs(checkpH - databkres.PH);
 		if(hieuPH == 0){
 		lcdDrawFillRect(&dev, 32, 96, 160, 128, BLACK);
-		sprintf((char *)asciiph, " %.2f ",data.pH);
+		sprintf((char *)asciiph, " %.2f ",databkres.PH);
 		ArrowTest(&dev, fx16G, model, CONFIG_WIDTH, CONFIG_HEIGHT,asciiph,30,125 );
 		}
         checkpH = 1000;
 
-		hieuTemp = fabs(checkTemp - data.temp);
+		hieuTemp = fabs(checkTemp - databkres.temperature);
 		if(hieuTemp == 0){
 		lcdDrawFillRect(&dev, 32, 128, 160, 160, BLACK);		
-		sprintf((char *)asciitemp, " %.2f oC",data.temp);
+		sprintf((char *)asciitemp, " %.2f oC",databkres.temperature);
 		ArrowTest(&dev, fx16G, model, CONFIG_WIDTH, CONFIG_HEIGHT,asciitemp,30,155 );	
 		}
         checkTemp = 1000;	
@@ -224,57 +296,65 @@ void ILI9341(void *pvParameters)
 }
 
 void task_get_data(void *arg){
-
-   	data.temp = get_Temp(10000.0,3950.0,298.15);
-	printf("Temp :%f \n", data.temp);
-	checkTemp = data.temp;
-    vTaskDelay(3000/portTICK_PERIOD_MS);
+    databkres.id = 1;
+   	databkres.temperature = get_Temp(10000.0,3950.0,298.15);
+	printf("Temp :%f \n", databkres.temperature);
+	checkTemp = databkres.temperature;
+    vTaskDelay(2000/portTICK_PERIOD_MS);
 
 	gpio_set_level(pH_ON_PIN1, 1);
-	data.pH = get_pH(nvsHandle, 3300.0, 26400.0);
-	printf("pH :%f\n", data.pH);
-	checkpH = data.pH;
+	databkres.PH = get_pH(nvsHandle, 3300.0, 26400.0);
+	printf("pH :%f\n", databkres.PH);
+	checkpH = databkres.PH;
 	gpio_set_level(pH_ON_PIN1, 0);
-    vTaskDelay(3000/portTICK_PERIOD_MS);
+    vTaskDelay(2000/portTICK_PERIOD_MS);
 
 	gpio_set_level(EC_ON_PIN1, 1);
-    data.EC = EC_get_value(26400.0,3300.0, 26.0);
-	printf("EC :%f \n",  data.EC);
-	checkEC = data.EC;
-    gpio_set_level(EC_ON_PIN1, 0);
-	vTaskDelay(3000/portTICK_PERIOD_MS);
-
-    gpio_set_level(DO_ON_PIN1, 1);
-	data.DO = get_DO(nvsHandle ,3300.0,  26400.0);
-	printf("DO :%f \n", data.DO);
-	checkDO = data.DO;
-    gpio_set_level(DO_ON_PIN1, 0);
-	vTaskDelay(3000/portTICK_PERIOD_MS);
-
-	xTaskCreate(&GPS, "GPS", 4096, NULL, 5, NULL);  
-    vTaskDelay(4000/portTICK_PERIOD_MS);
-
-	////////
-	hieukd = fabs(checkKD - gps_data.longitude); hieuvd =fabs(checkVD -gps_data.latitude); 
-	if(hieukd <= 0.000165 && hieuvd <= 0.000165){
-	sprintf(buff, "%s|%.2f|%.2f|%.2f|%.2f", time_buff, data.temp, data.pH, data.DO, data.EC);}
-	else{
-    sprintf(buff, "%s|%.2f|%.2f|%.2f|%.2f|%f|%f", time_buff, data.temp, data.pH, data.DO, data.EC,gps_data.latitude,gps_data.longitude);
-	}
-    checkKD = gps_data.longitude; checkVD = gps_data.latitude;
-    ////////
- //xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);  
-//	vTaskDelay(3000/portTICK_PERIOD_MS);
-    xTaskCreatePinnedToCore(send_data_task, "send data uart task", 4096*2, NULL, 32, &send_data, tskNO_AFFINITY);
+    databkres.EC = EC_get_value(26400.0,3300.0, 26.0);
+	printf("EC :%f \n",  databkres.EC);
+	checkEC = databkres.EC;
 	vTaskDelay(2000/portTICK_PERIOD_MS);
-	xTaskCreatePinnedToCore(sd_task, "sd_task", 2048*2, NULL,5, p_sd_card, tskNO_AFFINITY);  
+    gpio_set_level(EC_ON_PIN1, 0);
+	vTaskDelay(2000/portTICK_PERIOD_MS);
 
+
+
+    
+    gpio_set_level(DO_ON_PIN1, 1);
+	databkres.DO = get_DO(nvsHandle ,3300.0,  26400.0);
+	printf("DO :%f \n", databkres.DO);
+	checkDO = databkres.DO;
+    gpio_set_level(DO_ON_PIN1, 0);
+	vTaskDelay(2000/portTICK_PERIOD_MS);
+
+	//xTaskCreate(&GPS, "GPS", 4096, NULL, 5, NULL);  
+    // databkres.latitude = gps_data.latitude;
+	// databkres.longitude = gps_data.longitude;
+	// char data[100];
+	// encodeDataToHex(data,databkres.id,truncateDecimal(databkres.PH),truncateDecimal(databkres.DO),truncateDecimal(databkres.EC),truncateDecimal(databkres.temperature),databkres.latitude,databkres.longitude);
+	// int len =strlen(data);
+	// ESP_LOGW(TAG, "Data uart Bkres: %s", data);
+
+    xTaskCreatePinnedToCore(sd_task, "sd_task", 2048*2, NULL,5, p_sd_card, tskNO_AFFINITY);  
+	vTaskDelay(2000/portTICK_PERIOD_MS);
+	printf("%.2f|%.2f|%.2f|%.2f|%f|%f\n", databkres.temperature, databkres.PH, databkres.DO, databkres.EC,gps_data.latitude,gps_data.longitude);
+    xTaskCreate(&http_get_task, "http_get_task", 4096, NULL, 5, NULL);
+
+	// hieukd = fabs(checkKD - gps_data.longitude); hieuvd =fabs(checkVD -gps_data.latitude); 
+	// if(hieukd <= 0.000165 && hieuvd <= 0.000165)
+	// {
+	// sprintf(buff, "%s|%.2f|%.2f|%.2f|%.2f", time_buff, databkres.temperature, databkres.PH, databkres.DO, databkres.EC);}
+	// else{
+    // sprintf(buff, "%s|%.2f|%.2f|%.2f|%.2f|%f|%f", time_buff, databkres.temperature, databkres.PH, databkres.DO, databkres.EC,gps_data.latitude,gps_data.longitude);
+	// }
+    // checkKD = gps_data.longitude; checkVD = gps_data.latitude;
     vTaskDelete(NULL);
 }
 
 void ds3231_task(void *pvParameter)
 {
-	// i2c_dev_t dev;
+	
+    // i2c_dev_t dev;
 	// if (ds3231_init_desc(&dev, 0, 7, 6) != ESP_OK) {
 	// 	//ESP_LOGE(pcTaskGetName(0), "Could not init device descriptor.");
 	// 	while (1) { vTaskDelay(1000); }
@@ -295,21 +375,22 @@ void ds3231_task(void *pvParameter)
 	xTaskCreatePinnedToCore(task_get_data, "get_data", 2048*2, NULL, 1, &get_data, tskNO_AFFINITY);
 	vTaskDelete(NULL);
 
+
+
 }
 
 
 void app_main(void)
 {
 ///////////////////////////////////////////////////////    INIT	
-	//nvs_flash_init();
-	////DS3231
-	ESP_ERROR_CHECK(i2cdev_init());
-	////UART 
-	UART_init();
-	////GPS
-	GPS_init();
-	////LCD
 
+	ESP_ERROR_CHECK(i2cdev_init());
+	uart_init(9,10);
+    ESP_ERROR_CHECK( nvs_flash_init() );
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    ESP_ERROR_CHECK(example_connect());
+    
 	ESP_LOGI(TAG, "Initialize NVS");
 	esp_err_t err = nvs_flash_init();
 	if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -341,7 +422,7 @@ void app_main(void)
 	
 	
 
-    ////ADS1115
+    //ADS1115
     esp_rom_gpio_pad_select_gpio(pH_ON_PIN1);
 	gpio_set_direction(pH_ON_PIN1, GPIO_MODE_OUTPUT);
     esp_rom_gpio_pad_select_gpio(DO_ON_PIN1);
@@ -349,9 +430,9 @@ void app_main(void)
     esp_rom_gpio_pad_select_gpio(EC_ON_PIN1);
 	gpio_set_direction(EC_ON_PIN1, GPIO_MODE_OUTPUT);
   
-    init_param_pH(&nvsHandle);
-    EC_init_param(&nvsHandle);
-	init_param_DO(&nvsHandle);
+    init_param_pH(nvsHandle);
+    EC_init_param(nvsHandle);
+	init_param_DO(nvsHandle);
     
 	ds3231_init_desc(&dev1, 0, 7, 6);
 	
@@ -363,59 +444,55 @@ void app_main(void)
 			// time.tm_sec = 10;
 			// ds3231_set_time(&dev, &time);
 	
+	
 ///////////////////////////////////////////////////////////// END INIT
 
-    // Luồng vận hành
-	
+    // Luồng vận hành  ++++++++++++++++++++
 
-	//xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);           
-	//vTaskDelay(pdMS_TO_TICKS(6000));                                      //#LCD
-    //xTaskCreatePinnedToCore(sd_task, "sd_task", 2048*2, NULL,5, p_sd_card, tskNO_AFFINITY);                 //#SDCARD
-    //xTaskCreate(&GPS, "GPS", 4096, NULL, 5, NULL);                                                          //#GPS
-    //xTaskCreatePinnedToCore(ds3231_task, "ds3231_task", 2048 * 2, NULL, 4, &test_ds3231, tskNO_AFFINITY);     //#DS3231
-
-	xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);  
-    //pH_Calib(3300.0, 26400.0, nvsHandle, "storage", pH_CALIB_9);
-	//EC_calibrate(nvsHandle,3300.0, 26400.0, "storage", 12.88, EC_calib_hight_12_88, 27.0);
-	// DO_Calib(3300.0, 26400.0, nvsHandle,"storage", do_calib_0);
-	// void ILI9341(NULL);    
-	//xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);   
+    xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);  
 	while (1)
 	{
-    xTaskCreatePinnedToCore(ds3231_task, "ds3231_task", 2048 * 2, NULL, 4, &test_ds3231, tskNO_AFFINITY); 
-	// xTaskCreate(ILI9341, "ILI9341", 1024*6, NULL, 2, NULL);               
-	// xTaskCreatePinnedToCore(send_data_task, "send_data_task", 2048 * 2, NULL, 4, &send_data, tskNO_AFFINITY);
-    // xTaskCreate(&GPS, "GPS", 4096, NULL, 5, NULL);             
-	vTaskDelay(pdMS_TO_TICKS(60000));
-	ESP_LOGI(TAG, "--------------------------ABC----------------------------\n");
+    xTaskCreatePinnedToCore(ds3231_task, "ds3231_task", 2048 * 2, NULL, 4, &test_ds3231, tskNO_AFFINITY);        
+	vTaskDelay(pdMS_TO_TICKS(40000));
+	ESP_LOGI(TAG, "--------------------------END----------------------------\n");
 	}
-	// while(1){
 
-	// data.temp = get_Temp(10000.0,3950.0,298.15);
-	// printf("Temp :%f \n", data.temp);
-	// vTaskDelay(2000/portTICK_PERIOD_MS);
+///////////////////////////////////////////////////////////////////////////  Calib cam bien 
 
-	// gpio_set_level(pH_ON_PIN1, 1);
-	// data.pH = get_pH(nvsHandle, 3300.0, 26400.0);
-	// printf("pH :%f\n", data.pH);
-	// gpio_set_level(pH_ON_PIN1, 0);
-	// vTaskDelay(2000/portTICK_PERIOD_MS);
-
-	// gpio_set_level(EC_ON_PIN1, 1);
-	// data.EC = EC_get_value(26400.0,3300.0, 26.0);
-	// printf("EC :%f \n",  data.EC);
-	// gpio_set_level(EC_ON_PIN1, 0);
-	// vTaskDelay(2000/portTICK_PERIOD_MS);
-
-
-	// gpio_set_level(DO_ON_PIN1, 1);
-	// data.DO = get_DO(nvsHandle ,3300.0,  26400.0);
-	// printf("DO :%f \n", data.DO);
-	// gpio_set_level(DO_ON_PIN1, 0);
-	// vTaskDelay(2000/portTICK_PERIOD_MS);
-
-	//  }
+   
+/*Calib pH*/	
 	
+
+ /* pH_Calib(3300.0, 26400.0, nvsHandle, "storage", pH_CALIB_9);                               //pH calib 3 diem 
+	while(1){
+	gpio_set_level(pH_ON_PIN1, 1);
+	databkres.PH = get_pH(nvsHandle, 3300.0, 26400.0);
+	printf("pH :%f\n", databkres.PH);
+	vTaskDelay(2000/portTICK_PERIOD_MS);
+	}
+*/
+
+/*Calib EC*/
+
+ /* EC_calibrate(nvsHandle,3300.0, 26400.0, "storage", 12.88, EC_calib_hight_12_88, 27.0);     //EC calib 1 diem
+    while(1){
+	gpio_set_level(EC_ON_PIN1, 1);
+	databkres.EC = EC_get_value(26400.0,3300.0, 26.0);
+	printf("EC :%f \n",  databkres.EC);
+	vTaskDelay(2000/portTICK_PERIOD_MS);
+	}
+*/
+
+/*Calib DO*/
+
+/*  DO_Calib(3300.0, 26400.0, nvsHandle,"storage", do_calib_0);                               //EC calib 2 diem
+    while(1){
+	gpio_set_level(DO_ON_PIN1, 1);
+	databkres.DO = get_DO(nvsHandle ,3300.0,  26400.0);
+	printf("DO :%f \n", databkres.DO);
+	vTaskDelay(2000/portTICK_PERIOD_MS);
+	}
+*/	
     
 
 }

@@ -45,7 +45,7 @@ extern double b_6_86_4;
 extern double a_9_6_86;
 extern double b_9_6_86;
 
-void init_param_pH(nvs_handle_t* nvs_hande);
+void init_param_pH(nvs_handle_t nvs_hande);
 void pH_function_9_6_86();
 void pH_function_4_6_86();
 void pH_Calib( float ADC_VREF, float ADC_resolution

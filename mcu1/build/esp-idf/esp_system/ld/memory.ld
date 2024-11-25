@@ -24,7 +24,7 @@
 
  * Automatically generated file. DO NOT EDIT.
 
- * Espressif IoT Development Framework (ESP-IDF) Configuration Header
+ * Espressif IoT Development Framework (ESP-IDF) 5.1.4 Configuration Header
 
  */
        
@@ -45,6 +45,7 @@ _esp_memprot_prefetch_pad_size = 16;
 /* Memory alignment size for PMS */
 _esp_memprot_align_size = 256;
 _esp_mmu_block_size = (0x10000);
+    /* rtc timer data (s_rtc_timer_retain_mem, see esp_clk.c files). For rtc_timer_data_in_rtc_mem section. */
 /*
 
  * 40370000 <- IRAM/Icache -> 40378000 <- D/IRAM (I) -> 403E0000
@@ -110,7 +111,21 @@ MEMORY
    * RTC fast memory (executable). Persists over deep sleep.
 
    */
-  rtc_iram_seg(RWX) : org = 0x600fe000, len = 0x2000 - 0
+  rtc_iram_seg(RWX) : org = 0x600fe000, len = 0x2000 - (0 + (24))
+  /* We reduced the size of rtc_iram_seg by RESERVE_RTC_MEM value.
+
+     It reserves the amount of RTC fast memory that we use for this memory segment.
+
+     This segment is intended for keeping:
+
+       - (lower addr) rtc timer data (s_rtc_timer_retain_mem, see esp_clk.c files).
+
+       - (higher addr) bootloader rtc data (s_bootloader_retain_mem, when a Kconfig option is on).
+
+     The aim of this is to keep data that will not be moved around and have a fixed address.
+
+  */
+  rtc_reserved_seg(RW) : org = 0x600fe000 + 0x2000 - (0 + (24)), len = (0 + (24))
   /**
 
    * RTC slow memory (data accessible). Persists over deep sleep.
@@ -128,7 +143,7 @@ MEMORY
    */
   extern_ram_seg(RWX) : org = 0x3c000020 , len = 0x2000000-0x20
 }
-_static_data_end = _bss_end;
+_heap_start = _heap_low_start;
 /* Heap ends at top of dram0_0_seg */
 _heap_end = 0x40000000;
 _data_seg_org = ORIGIN(rtc_data_seg);

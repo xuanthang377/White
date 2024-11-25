@@ -44,7 +44,7 @@ typedef enum EC_callib_t{
 
 #define EC_TAG "EC_TAG"
 
-void EC_init_param(nvs_handle_t * nvs_handle);
+void EC_init_param(nvs_handle_t nvs_handle);
 void EC_calibrate(nvs_handle_t nvs_handle
 		, float ADC_Vref
 		, float ADC_resolution

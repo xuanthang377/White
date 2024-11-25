@@ -1,0 +1,413 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4004512e
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x3fce3818,len:0x1750
+load:0x403c9700,len:0x4
+load:0x403c9704,len:0xc00
+load:0x403cc700,len:0x2e0c
+entry 0x403c9908
+[0;32mI (27) boot: ESP-IDF v5.1.4 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Nov 24 2024 11:54:51[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 40MHz[0m
+[0;32mI (39) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (44) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (54) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (65) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (80) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (87) boot:  3 storage0         Unknown data     01 82 00110000 00020000[0m
+[0;32mI (95) boot:  4 storage1         Unknown data     01 82 00130000 00010000[0m
+[0;32mI (102) boot:  5 storage2         Unknown data     01 82 00140000 000b0000[0m
+[0;32mI (110) boot: End of partition table[0m
+[0;32mI (114) esp_image: segment 0: paddr=00010020 vaddr=3c0b0020 size=2837ch (164732) map[0m
+[0;32mI (163) esp_image: segment 1: paddr=000383a4 vaddr=3fc9a700 size=0478ch ( 18316) load[0m
+[0;32mI (169) esp_image: segment 2: paddr=0003cb38 vaddr=40374000 size=034e0h ( 13536) load[0m
+[0;32mI (173) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=a3548h (669000) map[0m
+[0;32mI (344) esp_image: segment 4: paddr=000e3570 vaddr=403774e0 size=13114h ( 78100) load[0m
+[0;32mI (376) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (376) boot: Disabling RNG early entropy source...[0m
+[0;32mI (388) cpu_start: Multicore app[0m
+[0;32mI (388) cpu_start: Pro cpu up.[0m
+[0;32mI (388) cpu_start: Starting app cpu, entry point is 0x40375674[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (407) cpu_start: Pro cpu start user code[0m
+[0;32mI (407) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (407) cpu_start: Application information:[0m
+[0;32mI (410) cpu_start: Project name:     ili9340[0m
+[0;32mI (415) cpu_start: App version:      1[0m
+[0;32mI (419) cpu_start: Compile time:     Nov 24 2024 13:59:42[0m
+[0;32mI (425) cpu_start: ELF file SHA256:  9651b9c40702edc0...[0m
+[0;32mI (431) cpu_start: ESP-IDF:          v5.1.4[0m
+[0;32mI (436) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (441) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (446) cpu_start: Chip rev:         v0.2[0m
+[0;32mI (450) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (458) heap_init: At 3FCA3EF0 len 00045820 (278 KiB): DRAM[0m
+[0;32mI (464) heap_init: At 3FCE9710 len 00005724 (21 KiB): STACK/DRAM[0m
+[0;32mI (470) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 600FE010 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (484) spi_flash: detected chip: gd[0m
+[0;32mI (487) spi_flash: flash io: dio[0m
+[0;32mI (491) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (498) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (505) app_start: Starting scheduler on CPU0[0m
+[0;32mI (510) app_start: Starting scheduler on CPU1[0m
+[0;32mI (510) main_task: Started on CPU0[0m
+[0;32mI (520) main_task: Calling app_main()[0m
+[0;32mI (530) example_connect: Start example_connect.[0m
+[0;32mI (540) pp: pp rom version: e7ae62f[0m
+[0;32mI (540) net80211: net80211 rom version: e7ae62f[0m
+I (550) wifi:wifi driver task: 3fcaf1f0, prio:23, stack:6656, core=0
+I (550) wifi:wifi firmware version: 3ce09e5
+I (550) wifi:wifi certification version: v7.0
+I (550) wifi:config NVS flash: enabled
+I (560) wifi:config nano formating: disabled
+I (560) wifi:Init data frame dynamic rx buffer num: 32
+I (570) wifi:Init static rx mgmt buffer num: 5
+I (570) wifi:Init management short buffer num: 32
+I (570) wifi:Init dynamic tx buffer num: 32
+I (580) wifi:Init static tx FG buffer num: 2
+I (580) wifi:Init static rx buffer size: 1600
+I (590) wifi:Init static rx buffer num: 10
+I (590) wifi:Init dynamic rx buffer num: 32
+[0;32mI (590) wifi_init: rx ba win: 6[0m
+[0;32mI (600) wifi_init: tcpip mbox: 32[0m
+[0;32mI (600) wifi_init: udp mbox: 6[0m
+[0;32mI (610) wifi_init: tcp mbox: 6[0m
+[0;32mI (610) wifi_init: tcp tx win: 5760[0m
+[0;32mI (610) wifi_init: tcp rx win: 5760[0m
+[0;32mI (620) wifi_init: tcp mss: 1440[0m
+[0;32mI (620) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (630) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (630) phy_init: phy_version 670,b7bc9b9,Apr 30 2024,10:54:13[0m
+I (680) wifi:mode : sta (80:65:99:a3:d6:b8)
+I (680) wifi:enable tsf
+[0;32mI (680) example_connect: Connecting to realme 6...[0m
+[0;32mI (680) example_connect: Waiting for IP(s)[0m
+I (3090) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1
+I (3430) wifi:state: init -> auth (b0)
+I (3430) wifi:state: auth -> assoc (0)
+I (3440) wifi:state: assoc -> run (10)
+I (3470) wifi:connected with realme 6, aid = 4, channel 1, BW20, bssid = 86:c6:ab:28:8c:6b
+I (3470) wifi:security: WPA2-PSK, phy: bgn, rssi: -52
+I (3470) wifi:pm start, type: 1
+
+I (3470) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (3480) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000
+I (3500) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us
+I (3500) wifi:AP's beacon interval = 102400 us, DTIM period = 2
+[0;32mI (4490) esp_netif_handlers: example_netif_sta ip: 192.168.60.175, mask: 255.255.255.0, gw: 192.168.60.101[0m
+[0;32mI (4490) example_connect: Got IPv4 event: Interface "example_netif_sta" address: 192.168.60.175[0m
+[0;32mI (4530) example_connect: Got IPv6 event: Interface "example_netif_sta" address: fe80:0000:0000:0000:8265:99ff:fea3:d6b8, type: ESP_IP6_ADDR_IS_LINK_LOCAL[0m
+[0;32mI (4530) example_common: Connected to example_netif_sta[0m
+[0;32mI (4540) example_common: - IPv4 address: 192.168.60.175,[0m
+[0;32mI (4540) example_common: - IPv6 address: fe80:0000:0000:0000:8265:99ff:fea3:d6b8, type: ESP_IP6_ADDR_IS_LINK_LOCAL[0m
+[0;32mI (4550) MAIN: Initialize NVS[0m
+[0;32mI (4560) MAIN: Initializing SPIFFS[0m
+[0;32mI (4570) MAIN: Mount /spiffs to storage0 success[0m
+[0;32mI (4570) MAIN: Partition size: total: 113201, used: 85089[0m
+[0;32mI (4570) listSPIFFS: d_name=ILGH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (4580) listSPIFFS: d_name=ILGH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (4580) listSPIFFS: d_name=ILGH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (4590) listSPIFFS: d_name=ILMH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (4600) listSPIFFS: d_name=ILMH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (4600) listSPIFFS: d_name=ILMH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (4610) listSPIFFS: d_name=LATIN32B.FNT d_ino=0 d_type=1[0m
+[0;32mI (4620) MAIN: Mount /icons to storage1 success[0m
+[0;32mI (4620) MAIN: Partition size: total: 52961, used: 6024[0m
+[0;32mI (4630) listSPIFFS: d_name=123.png d_ino=0 d_type=1[0m
+[0;32mI (4630) listSPIFFS: d_name=123a.png d_ino=0 d_type=1[0m
+[0;32mI (4640) listSPIFFS: d_name=youtube.png d_ino=0 d_type=1[0m
+[0;32mI (4690) MAIN: Mount /images to storage2 success[0m
+[0;32mI (4690) MAIN: Partition size: total: 655361, used: 57479[0m
+[0;32mI (4690) listSPIFFS: d_name=123.bmp d_ino=0 d_type=1[0m
+[0;32mI (4700) listSPIFFS: d_name=do.png d_ino=0 d_type=1[0m
+[0;32mI (4700) listSPIFFS: d_name=ec.png d_ino=0 d_type=1[0m
+[0;32mI (4710) listSPIFFS: d_name=ph.png d_ino=0 d_type=1[0m
+[0;32mI (4710) listSPIFFS: d_name=rtc.png d_ino=0 d_type=1[0m
+[0;32mI (4720) listSPIFFS: d_name=san.bmp d_ino=0 d_type=1[0m
+[0;32mI (4720) listSPIFFS: d_name=temp.png d_ino=0 d_type=1[0m
+[0;32mI (4750) MAIN: Disable Touch Contoller[0m
+[0;32mI (4750) ILI9340: TFT_MOSI=18[0m
+[0;32mI (4750) ILI9340: TFT_SCLK=17[0m
+[0;32mI (4750) ILI9340: TFT_CS=12[0m
+[0;32mI (4750) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (4760) ILI9340: GPIO_DC=8[0m
+[0;32mI (4760) gpio: GPIO[8]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (4770) ILI9340: GPIO_RESET=11[0m
+[0;32mI (4780) gpio: GPIO[11]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (4890) ILI9340: GPIO_BL=40[0m
+[0;32mI (4890) gpio: GPIO[40]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (4890) ILI9340: spi_bus_initialize(TFT) ret=0 TFT_ID=1[0m
+Done
+Reading _pH_4_voltage from NVS ... Done
+[0;32mI (4900) nvs interface: Done read key:pH4[0m
+[0;32mI (4900) nvs interface: pH4= 1147000[0m
+Done
+_pH_4_voltage = 2021000
+Done
+[0;32mI (4910) nvs interface: Done read key:pH6_86[0m
+[0;32mI (4910) nvs interface: pH6_86= 900000[0m
+Done
+_pH_6_86_voltage = 1551000
+Done
+[0;32mI (4920) nvs interface: Done read key:pH9[0m
+[0;32mI (4930) nvs interface: pH9= 1551000[0m
+Done
+_pH_9_voltage = 1003000
+oka_9_6_86: -5.474452 	 b_9_6_86: 15.500875 
+a_6_86_4: -6.382979 	 b_6_86_4: 16.910000
+ Done
+Reading EC_kvalue from NVS ... Done
+[0;32mI (4950) nvs interface: Done read key:K_value_EC_low[0m
+[0;32mI (4950) nvs interface: K_value_EC_low= 1000[0m
+Done
+KVALUEADDR_LOW = 1000
+Done
+[0;32mI (4960) nvs interface: Done read key:k_value_EC_high[0m
+[0;32mI (4970) nvs interface: k_value_EC_high= 1085[0m
+Done
+EC_kvalueHigh = 2700
+Done
+Reading DO_0_VAL from NVS ... Done
+[0;32mI (4980) nvs interface: Done read key:DO_0[0m
+[0;32mI (4980) nvs interface: DO_0= 1250000[0m
+Done
+DO_0_VAL = 1250000
+Done
+[0;32mI (4990) nvs interface: Done read key:DO_100[0m
+[0;32mI (4990) nvs interface: DO_100= 1107000[0m
+Done
+DO_100_VAL = 1107000
+DO 0V  = 1250000
+DO 100 = 1107000
+DO a = -6.993007
+DO b = 8.741259
+[0;32mI (5010) ILI9340: Your TFT is ST7735[0m
+[0;32mI (5010) ILI9340: Screen width:128[0m
+[0;32mI (5010) ILI9340: Screen height:160[0m
+2024-11-24 17:43:05
+[0] Raw ADC value: 6476, voltage: 0.8095 volts
+[0] Raw ADC value: 14004, voltage: 1.7506 volts
+[0] Raw ADC value: 14083, voltage: 1.7604 volts
+----------          ADC 14004       ---------
+Temp :27.920372 
+[0] Raw ADC value: 14043, voltage: 1.7554 volts
+[0] Raw ADC value: 16108, voltage: 2.0136 volts
+[0] Raw ADC value: 16102, voltage: 2.0128 volts
+----------          ADC 16102       ---------
+pH :4.482172
+[0] Raw ADC value: 5282, voltage: 0.6603 volts
+[0] Raw ADC value: 36, voltage: 0.0045 volts
+[0] Raw ADC value: 36, voltage: 0.0045 volts
+----------          ADC 36       ---------
+EC :-214.908508 
+[0] Raw ADC value: 5779, voltage: 0.7224 volts
+[0] Raw ADC value: 7253, voltage: 0.9067 volts
+[0] Raw ADC value: 7147, voltage: 0.8934 volts
+----------          ADC 7147       ---------
+DO :20.576468 
+[0;32mI (19110) sd_card_intialize: Initializing SD card[0m
+[0;32mI (19110) sd_card_intialize: Using SPI peripheral[0m
+[0;32mI (19110) sd_card_intialize: 2[0m
+[0;32mI (19110) sd_card_intialize: Mounting filesystem[0m
+[0;32mI (19120) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (19130) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (19180) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[0;32mI (19200) sd_card_intialize: SDCard has been initialized.[0m
+[0;32mI (19200) sd_card_intialize: Filesystem mounted[0m
+[0;32mI (19200) sd_card_intialize: SDCard properties.[0m
+Name: N/A  
+Type: SDSC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 1921MB
+CSD: ver=1, sector_size=512, capacity=3934208 read_bl_len=10
+SSR: bus_width=1
+buff_sd:
+[0;32mI (19220) sd_write_file: Opening file /sdcard/log1124.txt...[0m
+[0;32mI (19230) SD Card: Success to create string data(3) for writing.[0m
+[0;32mI (19230) SD Card: Writing data to file /sdcard/log1124.txt...[0m
+[0;32mI (19240) SD Card: 
+;
+[0m
+[0;32mI (19240) sd_write_file: Success to write data to file /sdcard/log1124.txt.[0m
+[0;32mI (19250) SD Card: Save data success[0m
+[0;32mI (19250) sd_deinitialize: Deinitializing SD card...[0m
+[0;32mI (19260) gpio: GPIO[13]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (19270) sd_deinitialize: Card unmounted.[0m
+[0;32mI (19270) gpio: GPIO[14]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (19280) gpio: GPIO[38]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (19290) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+END sd_task
+27.92|4.48|20.58|-214.91|0.000000|0.000000
+[0;32mI (21140) sd_card_intialize: Initializing SD card[0m
+[0;32mI (21140) sd_card_intialize: Using SPI peripheral[0m
+[0;32mI (21150) sd_card_intialize: 2[0m
+[0;32mI (21150) sd_card_intialize: Mounting filesystem[0m
+[0;32mI (21150) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (21160) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (21210) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[0;32mI (21230) sd_card_intialize: SDCard has been initialized.[0m
+[0;32mI (21230) sd_card_intialize: Filesystem mounted[0m
+[0;32mI (21230) sd_card_intialize: SDCard properties.[0m
+Name: N/A  
+Type: SDSC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 1921MB
+CSD: ver=1, sector_size=512, capacity=3934208 read_bl_len=10
+SSR: bus_width=1
+buff_sd:
+[0;32mI (21250) sd_write_file: Opening file /sdcard/log1124.txt...[0m
+[0;32mI (21260) SD Card: Success to create string data(3) for writing.[0m
+[0;32mI (21260) SD Card: Writing data to file /sdcard/log1124.txt...[0m
+[0;32mI (21270) SD Card: 
+;
+[0m
+[0;32mI (21270) sd_write_file: Success to write data to file /sdcard/log1124.txt.[0m
+[0;32mI (21380) SD Card: Save data success[0m
+[0;32mI (21380) sd_deinitialize: Deinitializing SD card...[0m
+[0;32mI (21380) gpio: GPIO[13]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (21390) sd_deinitialize: Card unmounted.[0m
+[0;32mI (21390) gpio: GPIO[14]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (21400) gpio: GPIO[38]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (21410) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+END sd_task
+I (21420) wifi:<ba-add>idx:0 (ifx:0, 86:c6:ab:28:8c:6b), tid:0, ssn:3, winSize:64
+[0;32mI (21430) MAIN: DNS lookup succeeded. IP=34.194.156.165[0m
+[0;32mI (21430) MAIN: ... allocated socket[0m
+I (21490) wifi:<ba-add>idx:1 (ifx:0, 86:c6:ab:28:8c:6b), tid:4, ssn:0, winSize:64
+[0;32mI (21490) MAIN: ... connected[0m
+[0;32mI (21500) MAIN: ... socket send success[0m
+[0;32mI (21500) MAIN: ... set socket receiving timeout success[0m
+HTTP/1.1 200 OK
+Date: Sun, 24 Nov 2024 10:44:41 GMT
+Content-Type: text/plain; charset=utf-8
+Status: 200 OK
+Cache-Control: max-age=0, private, must-revalidate
+Access-Control-Allow-Origin: *
+Access-Control-Max-Age: 1800
+X-Request-Id: 960cefad-c048-475d-9b82-0d5f17a17d3e
+Access-Control-Allow-Headers: origin, content-type, X-Requested-With
+Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS, DELETE, PATCH
+ETag: W/"b1556dea32e9d0cdbfed038fd7787275"
+X-Frame-Options: SAMEORIGIN
+Content-Length: 3
+Connection: close
+
+112[0;32mI (22490) MAIN: Starting again![0m
+[0;32mI (45020) MAIN: --------------------------END----------------------------
+[0m
+2024-11-24 17:43:45
+[0] Raw ADC value: 7221, voltage: 0.9027 volts
+[0] Raw ADC value: 14067, voltage: 1.7584 volts
+[0] Raw ADC value: 14035, voltage: 1.7544 volts
+----------          ADC 14035       ---------
+Temp :28.028505 
+[0] Raw ADC value: 14041, voltage: 1.7552 volts
+[0] Raw ADC value: 16116, voltage: 2.0146 volts
+[0] Raw ADC value: 16113, voltage: 2.0142 volts
+----------          ADC 16113       ---------
+pH :4.474644
+[0] Raw ADC value: 5702, voltage: 0.7128 volts
+[0] Raw ADC value: 39, voltage: 0.0049 volts
+[0] Raw ADC value: 40, voltage: 0.0050 volts
+----------          ADC 40       ---------
+EC :-209.126434 
+[0] Raw ADC value: 6561, voltage: 0.8202 volts
+[0] Raw ADC value: 7252, voltage: 0.9065 volts
+[0] Raw ADC value: 7351, voltage: 0.9189 volts
+----------          ADC 7252       ---------
+DO :19.819284 
+[0;32mI (59040) sd_card_intialize: Initializing SD card[0m
+[0;32mI (59040) sd_card_intialize: Using SPI peripheral[0m
+[0;32mI (59040) sd_card_intialize: 2[0m
+[0;32mI (59040) sd_card_intialize: Mounting filesystem[0m
+[0;32mI (59050) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (59060) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (59110) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[0;32mI (59130) sd_card_intialize: SDCard has been initialized.[0m
+[0;32mI (59130) sd_card_intialize: Filesystem mounted[0m
+[0;32mI (59130) sd_card_intialize: SDCard properties.[0m
+Name: N/A  
+Type: SDSC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 1921MB
+CSD: ver=1, sector_size=512, capacity=3934208 read_bl_len=10
+SSR: bus_width=1
+buff_sd:
+[0;32mI (59150) sd_write_file: Opening file /sdcard/log1124.txt...[0m
+[0;32mI (59160) SD Card: Success to create string data(3) for writing.[0m
+[0;32mI (59160) SD Card: Writing data to file /sdcard/log1124.txt...[0m
+[0;32mI (59170) SD Card: 
+;
+[0m
+[0;32mI (59170) sd_write_file: Success to write data to file /sdcard/log1124.txt.[0m
+[0;32mI (59180) SD Card: Save data success[0m
+[0;32mI (59180) sd_deinitialize: Deinitializing SD card...[0m
+[0;32mI (59190) gpio: GPIO[13]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (59200) sd_deinitialize: Card unmounted.[0m
+[0;32mI (59200) gpio: GPIO[14]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (59210) gpio: GPIO[38]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (59220) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+END sd_task
+28.03|4.47|19.82|-209.13|0.000000|0.000000
+[0;32mI (61070) sd_card_intialize: Initializing SD card[0m
+[0;32mI (61070) sd_card_intialize: Using SPI peripheral[0m
+[0;32mI (61080) sd_card_intialize: 2[0m
+[0;32mI (61080) sd_card_intialize: Mounting filesystem[0m
+[0;32mI (61080) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (61090) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (61140) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[0;32mI (61150) MAIN: DNS lookup succeeded. IP=34.194.156.165[0m
+[0;32mI (61160) MAIN: ... allocated socket[0m
+[0;32mI (61160) sd_card_intialize: SDCard has been initialized.[0m
+[0;32mI (61160) sd_card_intialize: Filesystem mounted[0m
+[0;32mI (61170) sd_card_intialize: SDCard properties.[0m
+Name: N/A  
+Type: SDSC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 1921MB
+CSD: ver=1, sector_size=512, capacity=3934208 read_bl_len=10
+SSR: bus_width=1
+buff_sd:
+[0;32mI (61190) sd_write_file: Opening file /sdcard/log1124.txt...[0m
+[0;32mI (61190) MAIN: ... connected[0m
+[0;32mI (61200) SD Card: Success to create string data(3) for writing.[0m
+[0;32mI (61200) MAIN: ... socket send success[0m
+[0;32mI (61200) SD Card: Writing data to file /sdcard/log1124.txt...[0m
+[0;32mI (61210) MAIN: ... set socket receiving timeout success[0m
+[0;32mI (61210) SD Card: 
+;
+[0m
+[0;32mI (61220) sd_write_file: Success to write data to file /sdcard/log1124.txt.[0m
+[0;32mI (61240) SD Card: Save data success[0m
+[0;32mI (61240) sd_deinitialize: Deinitializing SD card...[0m
+[0;32mI (61240) gpio: GPIO[13]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (61250) sd_deinitialize: Card unmounted.[0m
+[0;32mI (61260) gpio: GPIO[14]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (61260) gpio: GPIO[38]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (61270) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+END sd_task
+HTTP/1.1 200 OK
+Date: Sun, 24 Nov 2024 10:45:20 GMT
+Content-Type: text/plain; charset=utf-8
+Status: 200 OK
+Cache-Control: max-age=0, private, must-revalidate
+Access-Control-Allow-Origin: *
+Access-Control-Max-Age: 1800
+X-Request-Id: d8759a35-84cb-410c-a86e-bbeb960cd665
+Access-Control-Allow-Headers: origin, content-type, X-Requested-With
+Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS, DELETE, PATCH
+ETag: W/"6c658ee83fb7e812482494f3e416a876"
+X-Frame-Options: SAMEORIGIN
+Content-Length: 3
+Connection: close
+
+113[0;32mI (62220) MAIN: Starting again![0m

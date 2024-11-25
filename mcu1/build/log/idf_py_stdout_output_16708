@@ -1,0 +1,19 @@
+[1/8] cmd.exe /C "cd /D E:\mcu1\build && E:\Embedded\Espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/spiffs/spiffsgen.py 0x10000 E:/mcu1/icons E:/mcu1/build/storage1.bin --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[2/8] cmd.exe /C "cd /D E:\mcu1\build && E:\Embedded\Espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/spiffs/spiffsgen.py 0x20000 E:/mcu1/font E:/mcu1/build/storage0.bin --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[3/8] cmd.exe /C "cd /D E:\mcu1\build && E:\Embedded\Espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/spiffs/spiffsgen.py 0xb0000 E:/mcu1/images E:/mcu1/build/storage2.bin --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[4/8] cmd.exe /C "cd /D E:\mcu1\build\esp-idf\esptool_py && E:\Embedded\Espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/partition_table/check_sizes.py --offset 0x8000 partition --type app E:/mcu1/build/partition_table/partition-table.bin E:/mcu1/build/ili9340.bin"
+ili9340.bin binary size 0xbfd30 bytes. Smallest app partition is 0x100000 bytes. 0x402d0 bytes (25%) free.
+[5/8] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D E:\mcu1\build\bootloader\esp-idf\esptool_py && E:\Embedded\Espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 E:/mcu1/build/bootloader/bootloader.bin"
+Bootloader binary size 0x51c0 bytes. 0x2e40 bytes (36%) free.
+[5/6] cmd.exe /C "cd /D E:\Embedded\Espressif\frameworks\esp-idf-v5.1.4\components\esptool_py && E:\Embedded\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4 -D SERIAL_TOOL=E:/Embedded/Espressif/python_env/idf5.1_py3.11_env/Scripts/python.exe;;E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esptool_py/esptool/esptool.py;--chip;esp32s3 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=E:/mcu1/build -P E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32s3 -p COM3 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 8MB 0x0 bootloader/bootloader.bin 0x10000 ili9340.bin 0x8000 partition_table/partition-table.bin 0x110000 storage0.bin 0x130000 storage1.bin 0x140000 storage2.bin
+esptool.py v4.7.0
+Serial port COM3
+Connecting......................................
+
+A fatal error occurred: Failed to connect to ESP32-S3: No serial data received.
+For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html
+FAILED: CMakeFiles/flash E:/mcu1/build/CMakeFiles/flash 
+cmd.exe /C "cd /D E:\Embedded\Espressif\frameworks\esp-idf-v5.1.4\components\esptool_py && E:\Embedded\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4 -D SERIAL_TOOL=E:/Embedded/Espressif/python_env/idf5.1_py3.11_env/Scripts/python.exe;;E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esptool_py/esptool/esptool.py;--chip;esp32s3 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=E:/mcu1/build -P E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esptool_py/run_serial_tool.cmake"
+ninja: build stopped: subcommand failed.

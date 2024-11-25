@@ -41,9 +41,9 @@ uint32_t DO_V0 = 0, DO_V100 = 0;
          7560, 7430, 7300, 7180, 7070, 6950, 6840, 6730, 6630, 6530, 6410};
 
 
-void init_param_DO(nvs_handle_t *pnvs_handle){
+void init_param_DO(nvs_handle_t pnvs_handle){
 	esp_err_t err;
-	err = nvs_open("storage", NVS_READWRITE, pnvs_handle);
+	err = nvs_open("storage", NVS_READWRITE,&pnvs_handle);
 	if (err != ESP_OK) {
 		printf("Error (%s) opening NVS handle!\n", esp_err_to_name(err));
 	} else {
@@ -56,7 +56,7 @@ void init_param_DO(nvs_handle_t *pnvs_handle){
 		switch (err) {
 		case ESP_OK:
 			printf("Done\n");
-			//DO_V0 /= 1000000.0;
+			DO_V0 =  1250000;                                       // Gia tri luu lai sau khi calib 
 			printf("DO_0_VAL = %ld\n", DO_V0);
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
@@ -69,7 +69,7 @@ void init_param_DO(nvs_handle_t *pnvs_handle){
 		switch (err) {
 		case ESP_OK:
 			printf("Done\n");
-			//DO_V100 /= 1000000.0;
+			DO_V100 = 1107000;                                     // Gia tri luu lai sau khi calib 
 			printf("DO_100_VAL = %ld\n", DO_V100);
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
@@ -126,25 +126,19 @@ void DO_Calib(float ADC_Vref
 	int buf [4];
 	
     for (t=0;t<4;t++){
-    // Read result
+  
     if (ads111x_get_value(&devices[0], &raw) == ESP_OK)
     {
         float voltage = gain_val / ADS111X_MAX_VALUE * raw;
         printf("[%u] Raw ADC value: %ld, voltage: %.04f volts\n", 0, raw, voltage);
-		// if(raw == 0){
-		// ads111x_get_value(&devices[0], &raw);}
 		buf[t] = raw;
 		vTaskDelay(pdMS_TO_TICKS(200));
-       // avg_adc = raw;
     }
-    else
-	{
-        //printf("[%u] Cannot read ADC value\n", 0);
-	}
+   
     }
 
-    for (int i = 0; i < 4; i++) {
-       for (int j = i + 1; j < 4; j++) {
+ 	for (int i = 0; i < 3; i++) {
+       for (int j = i + 1; j < 3; j++) {
          if (buf[i] > buf[j]) {
             int temp = buf[i];
             buf[i] = buf[j];
@@ -152,18 +146,14 @@ void DO_Calib(float ADC_Vref
          }
         }
     }
-    avgValue =0;
-	for(int i = 1; i < 3 ; i ++){
-		avgValue+= buf[i];
-	}
-	avgValue  /= 2;
-	printf("ADC DO: %ld\n",avgValue);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
-	avgValue = 40;
+
+    avgValue = buf[1];
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 	float voltage = convert_ADC_voltage(avgValue, ADC_resolution, ADC_Vref);
 	avgValue = (uint32_t)voltage * 1000;
+	ESP_LOGI(TAG_DO,"Gia tri can luu lai la: %d",(int)avgValue);
+	printf("key:%s\n",key);
 	err = write_nvs_func(nvs_handle, space_name, key, (uint32_t)avgValue);
-
 	ESP_LOGI(TAG_DO_calib,"%s",(err!= ESP_OK)?"Error in save to nvs!":"Calib success!");
 	read_nvs(nvs_handle, space_name, key, &avgValue);
 }
@@ -192,36 +182,26 @@ float get_DO(nvs_handle_t nvsHandle, float ADC_VREF, float ADC_resolution){
 
     memset(devices, 0, sizeof(devices));
     gain_val = ads111x_gain_values[GAIN];
-    // Setup ICs
-    // for (size_t i = 0; i < CONFIG_EXAMPLE_DEV_COUNT; i++)
-    // {
+   
 	ESP_ERROR_CHECK(ads111x_init_desc(&devices[0], 0x48, I2C_PORT, 16, 15));
 	ESP_ERROR_CHECK(ads111x_set_mode(&devices[0], ADS111X_MODE_CONTINUOUS));    // Continuous conversion mode
 	ESP_ERROR_CHECK(ads111x_set_data_rate(&devices[0], ADS111X_DATA_RATE_32)); // 32 samples per second
 	ESP_ERROR_CHECK(ads111x_set_input_mux(&devices[0], ADS111X_MUX_1_GND));    // positive = AIN0, negative = GND
 	ESP_ERROR_CHECK(ads111x_set_gain(&devices[0], GAIN));
-  //  }
+
 	(void)addr; 
     uint8_t t ;  
 	int32_t raw = 0;
 	int buf [3];
     for (t=0;t<3;t++){
-    // Read result
-    // if (ads111x_get_value(&devices[0], &raw) == ESP_OK)
-    // {
+    
 		ads111x_get_value(&devices[0], &raw);
         float voltage = gain_val / ADS111X_MAX_VALUE * raw;
         printf("[%u] Raw ADC value: %ld, voltage: %.04f volts\n", 0, raw, voltage);
-		// if(raw == 0){
-		// ads111x_get_value(&devices[0], &raw);}
+		
 		buf[t] = raw;
-		  vTaskDelay(500/portTICK_PERIOD_MS);
-       // avg_adc = raw;
-    // }
-    // else
-	// {
-    //     //printf("[%u] Cannot read ADC value\n", 0);
-	// }
+		vTaskDelay(500/portTICK_PERIOD_MS);
+    
     }
 
     for (int i = 0; i < 3; i++) {
@@ -233,17 +213,11 @@ float get_DO(nvs_handle_t nvsHandle, float ADC_VREF, float ADC_resolution){
          }
         }
     }
-
-	//for(int i = 1; i < 2 ; i ++){
-		avg_adc = buf[1];
-	//}
-	//avg_adc  /= 2;
-
-
+	avg_adc = buf[1];
+	
 			float adc_voltage = (float)avg_adc/(ADC_resolution + 1)*(ADC_VREF/1000.0);
 			float DO_val = convert_vol2mgL(adc_voltage, 25.0);
-			 DO_val = DO_val/1000;
-			
+			DO_val = DO_val/1000;
 			printf("----------          ADC %ld       ---------\n",avg_adc);
 			return (float)DO_val;
 }

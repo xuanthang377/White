@@ -1,0 +1,317 @@
+[0;32mI (336) hESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40048839
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x3fce3818,len:0x1750
+load:0x403c9700,len:0x4
+load:0x403c9704,len:0xc00
+load:0x403cc700,len:0x2e0c
+entry 0x403c9908
+[0;32mI (27) boot: ESP-IDF v5.1.4 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Nov 24 2024 11:54:51[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 40MHz[0m
+[0;32mI (39) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (44) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (54) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (65) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (80) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (87) boot:  3 storage0         Unknown data     01 82 00110000 00020000[0m
+[0;32mI (95) boot:  4 storage1         Unknown data     01 82 00130000 00010000[0m
+[0;32mI (102) boot:  5 storage2         Unknown data     01 82 00140000 000b0000[0m
+[0;32mI (110) boot: End of partition table[0m
+[0;32mI (114) esp_image: segment 0: paddr=00010020 vaddr=3c040020 size=12c98h ( 76952) map[0m
+[0;32mI (141) esp_image: segment 1: paddr=00022cc0 vaddr=3fc94300 size=02958h ( 10584) load[0m
+[0;32mI (145) esp_image: segment 2: paddr=00025620 vaddr=40374000 size=0a9f8h ( 43512) load[0m
+[0;32mI (160) esp_image: segment 3: paddr=00030020 vaddr=42000020 size=3c1ech (246252) map[0m
+[0;32mI (222) esp_image: segment 4: paddr=0006c214 vaddr=4037e9f8 size=05864h ( 22628) load[0m
+[0;32mI (235) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (236) boot: Disabling RNG early entropy source...[0m
+[0;32mI (247) cpu_start: Multicore app[0m
+[0;32mI (247) cpu_start: Pro cpu up.[0m
+[0;32mI (247) cpu_start: Starting app cpu, entry point is 0x403754e4[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (266) cpu_start: Pro cpu start user code[0m
+[0;32mI (266) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (266) cpu_start: Application information:[0m
+[0;32mI (269) cpu_start: Project name:     ili9340[0m
+[0;32mI (274) cpu_start: App version:      1[0m
+[0;32mI (278) cpu_start: Compile time:     Nov 24 2024 13:59:42[0m
+[0;32mI (284) cpu_start: ELF file SHA256:  cf8d432ed509b136...[0m
+[0;32mI (290) cpu_start: ESP-IDF:          v5.1.4[0m
+[0;32mI (295) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (300) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (305) cpu_start: Chip rev:         v0.2[0m
+[0;32mI (310) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (317) heap_init: At 3FC98010 len 00051700 (325 KiB): DRAM[0m
+[0;32mI (323) heap_init: At 3FCE9710 len 00005724 (21 KiB): STACK/DRAM[0m
+[0;32mI (330) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (336) heap_init: At 600FE010 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (343) spi_flash: detected chip: gd[0m
+[0;32mI (346) spi_flash: flash io: dio[0m
+[0;32mI (350) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (357) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (364) app_start: Starting scheduler on CPU0[0m
+[0;32mI (0) app_start: Starting scheduler on CPU1[0m
+[0;32mI (369) main_task: Started on CPU0[0m
+[0;32mI (379) main_task: Calling app_main()[0m
+[0;32mI (379) GPS: GPS ATGM336H Initializing...
+[0m
+[0;32mI (389) GPS: uart_param_config: 0
+[0m
+[0;32mI (389) GPS: uart_driver_install: 0
+[0m
+[0;32mI (399) GPS: uart_set_pin: 0
+[0m
+[0;32mI (399) GPS: GPS init success!
+[0m
+[0;32mI (409) MAIN: Initialize NVS[0m
+[0;32mI (419) MAIN: Initializing SPIFFS[0m
+[0;32mI (419) MAIN: Mount /spiffs to storage0 success[0m
+[0;32mI (419) MAIN: Partition size: total: 113201, used: 85089[0m
+[0;32mI (419) listSPIFFS: d_name=ILGH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (429) listSPIFFS: d_name=ILGH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (439) listSPIFFS: d_name=ILGH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (439) listSPIFFS: d_name=ILMH16XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (449) listSPIFFS: d_name=ILMH24XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (449) listSPIFFS: d_name=ILMH32XB.FNT d_ino=0 d_type=1[0m
+[0;32mI (459) listSPIFFS: d_name=LATIN32B.FNT d_ino=0 d_type=1[0m
+[0;32mI (469) MAIN: Mount /icons to storage1 success[0m
+[0;32mI (469) MAIN: Partition size: total: 52961, used: 6024[0m
+[0;32mI (479) listSPIFFS: d_name=123.png d_ino=0 d_type=1[0m
+[0;32mI (479) listSPIFFS: d_name=123a.png d_ino=0 d_type=1[0m
+[0;32mI (489) listSPIFFS: d_name=youtube.png d_ino=0 d_type=1[0m
+[0;32mI (539) MAIN: Mount /images to storage2 success[0m
+[0;32mI (539) MAIN: Partition size: total: 655361, used: 57479[0m
+[0;32mI (539) listSPIFFS: d_name=123.bmp d_ino=0 d_type=1[0m
+[0;32mI (549) listSPIFFS: d_name=do.png d_ino=0 d_type=1[0m
+[0;32mI (549) listSPIFFS: d_name=ec.png d_ino=0 d_type=1[0m
+[0;32mI (559) listSPIFFS: d_name=ph.png d_ino=0 d_type=1[0m
+[0;32mI (559) listSPIFFS: d_name=rtc.png d_ino=0 d_type=1[0m
+[0;32mI (569) listSPIFFS: d_name=san.bmp d_ino=0 d_type=1[0m
+[0;32mI (569) listSPIFFS: d_name=temp.png d_ino=0 d_type=1[0m
+[0;32mI (599) MAIN: Disable Touch Contoller[0m
+[0;32mI (599) ILI9340: TFT_MOSI=18[0m
+[0;32mI (599) ILI9340: TFT_SCLK=17[0m
+[0;32mI (599) ILI9340: TFT_CS=12[0m
+[0;32mI (599) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (609) ILI9340: GPIO_DC=8[0m
+[0;32mI (609) gpio: GPIO[8]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (619) ILI9340: GPIO_RESET=11[0m
+[0;32mI (629) gpio: GPIO[11]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (739) ILI9340: GPIO_BL=40[0m
+[0;32mI (739) gpio: GPIO[40]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (739) ILI9340: spi_bus_initialize(TFT) ret=0 TFT_ID=1[0m
+Done
+Reading _pH_4_voltage from NVS ... Done
+[0;32mI (749) nvs interface: Done read key:pH4[0m
+[0;32mI (749) nvs interface: pH4= 1147000[0m
+Done
+_pH_4_voltage = 2021000
+Done
+[0;32mI (759) nvs interface: Done read key:pH6_86[0m
+[0;32mI (759) nvs interface: pH6_86= 900000[0m
+Done
+_pH_6_86_voltage = 1551000
+Done
+[0;32mI (769) nvs interface: Done read key:pH9[0m
+[0;32mI (779) nvs interface: pH9= 1551000[0m
+Done
+_pH_9_voltage = 1003000
+oka_9_6_86: -5.474452 	 b_9_6_86: 15.500875 
+a_6_86_4: -6.382979 	 b_6_86_4: 16.910000
+ Done
+Reading EC_kvalue from NVS ... Done
+[0;32mI (789) nvs interface: Done read key:K_value_EC_low[0m
+[0;32mI (799) nvs interface: K_value_EC_low= 1000[0m
+Done
+KVALUEADDR_LOW = 1000
+Done
+[0;32mI (809) nvs interface: Done read key:k_value_EC_high[0m
+[0;32mI (809) nvs interface: k_value_EC_high= 1085[0m
+Done
+EC_kvalueHigh = 2700
+Done
+Reading DO_0_VAL from NVS ... Done
+[0;32mI (819) nvs interface: Done read key:DO_0[0m
+[0;32mI (829) nvs interface: DO_0= 1250000[0m
+Done
+DO_0_VAL = 1250000
+Done
+[0;32mI (839) nvs interface: Done read key:DO_100[0m
+[0;32mI (839) nvs interface: DO_100= 1107000[0m
+Done
+DO_100_VAL = 1107000
+DO 0V  = 1250000
+DO 100 = 1107000
+DO a = -6.993007
+DO b = 8.741259
+[0] Raw ADC value: 6791, voltage: 0.8489 volts
+[0] Raw ADC value: 7241, voltage: 0.9052 volts
+[0] Raw ADC value: 7101, voltage: 0.8877 volts
+----------          ADC 7101       ---------
+DO :20.908186 
+[0] Raw ADC value: 7339, voltage: 0.9174 volts
+[0] Raw ADC value: 7183, voltage: 0.8979 volts
+[0] Raw ADC value: 7104, voltage: 0.8880 volts
+----------          ADC 7183       ---------
+DO :20.316866 
+[0] Raw ADC value: 7313, voltage: 0.9142 volts
+[0] Raw ADC value: 7130, voltage: 0.8913 volts
+[0] Raw ADC value: 7137, voltage: 0.8922 volts
+----------          ADC 7137       ---------
+DO :20.648581 
+[0] Raw ADC value: 7267, voltage: 0.9084 volts
+[0] Raw ADC value: 7101, voltage: 0.8877 volts
+[0] Raw ADC value: 7163, voltage: 0.8954 volts
+----------          ADC 7163       ---------
+DO :20.461090 
+[0] Raw ADC value: 7229, voltage: 0.9037 volts
+[0] Raw ADC value: 7316, voltage: 0.9145 volts
+[0] Raw ADC value: 7304, voltage: 0.9130 volts
+----------          ADC 7304       ---------
+DO :19.444302 
+[0] Raw ADC value: 7222, voltage: 0.9028 volts
+[0] Raw ADC value: 7334, voltage: 0.9168 volts
+[0] Raw ADC value: 7296, voltage: 0.9120 volts
+----------          ADC 7296       ---------
+DO :19.501987 
+[0] Raw ADC value: 7214, voltage: 0.9018 volts
+[0] Raw ADC value: 7323, voltage: 0.9154 volts
+[0] Raw ADC value: 7306, voltage: 0.9133 volts
+----------          ADC 7306       ---------
+DO :19.429878 
+[0] Raw ADC value: 7171, voltage: 0.8964 volts
+[0] Raw ADC value: 7294, voltage: 0.9118 volts
+[0] Raw ADC value: 7108, voltage: 0.8885 volts
+----------          ADC 7171       ---------
+DO :20.403399 
+[0] Raw ADC value: 7136, voltage: 0.8920 volts
+[0] Raw ADC value: 7202, voltage: 0.9003 volts
+[0] Raw ADC value: 7102, voltage: 0.8878 volts
+----------          ADC 7136       ---------
+DO :20.655790 
+[0] Raw ADC value: 7346, voltage: 0.9183 volts
+[0] Raw ADC value: 7264, voltage: 0.9080 volts
+[0] Raw ADC value: 7110, voltage: 0.8888 volts
+----------          ADC 7264       ---------
+DO :19.732750 
+[0] Raw ADC value: 7333, voltage: 0.9167 volts
+[0] Raw ADC value: 7287, voltage: 0.9109 volts
+[0] Raw ADC value: 7112, voltage: 0.8890 volts
+----------          ADC 7287       ---------
+DO :19.566889 
+[0] Raw ADC value: 7321, voltage: 0.9152 volts
+[0] Raw ADC value: 7302, voltage: 0.9128 volts
+[0] Raw ADC value: 7264, voltage: 0.9080 volts
+----------          ADC 7302       ---------
+DO :19.458727 
+[0] Raw ADC value: 7122, voltage: 0.8903 volts
+[0] Raw ADC value: 7128, voltage: 0.8910 volts
+[0] Raw ADC value: 7267, voltage: 0.9084 volts
+----------          ADC 7128       ---------
+DO :20.713490 
+[0] Raw ADC value: 7128, voltage: 0.8910 volts
+[0] Raw ADC value: 7136, voltage: 0.8920 volts
+[0] Raw ADC value: 7270, voltage: 0.9088 volts
+----------          ADC 7136       ---------
+DO :20.655790 
+[0] Raw ADC value: 7112, voltage: 0.8890 volts
+[0] Raw ADC value: 7143, voltage: 0.8929 volts
+[0] Raw ADC value: 7274, voltage: 0.9093 volts
+----------          ADC 7143       ---------
+DO :20.605310 
+[0] Raw ADC value: 7086, voltage: 0.8858 volts
+[0] Raw ADC value: 7173, voltage: 0.8967 volts
+[0] Raw ADC value: 7177, voltage: 0.8972 volts
+----------          ADC 7173       ---------
+DO :20.388977 
+[0] Raw ADC value: 7266, voltage: 0.9083 volts
+[0] Raw ADC value: 7277, voltage: 0.9097 volts
+[0] Raw ADC value: 7103, voltage: 0.8879 volts
+----------          ADC 7266       ---------
+DO :19.718328 
+[0] Raw ADC value: 7281, voltage: 0.9102 volts
+[0] Raw ADC value: 7207, voltage: 0.9009 volts
+[0] Raw ADC value: 7158, voltage: 0.8948 volts
+----------          ADC 7207       ---------
+DO :20.143793 
+[0] Raw ADC value: 7264, voltage: 0.9080 volts
+[0] Raw ADC value: 7167, voltage: 0.8959 volts
+[0] Raw ADC value: 7168, voltage: 0.8960 volts
+----------          ADC 7168       ---------
+DO :20.425028 
+[0] Raw ADC value: 7224, voltage: 0.9030 volts
+[0] Raw ADC value: 7246, voltage: 0.9058 volts
+[0] Raw ADC value: 7293, voltage: 0.9117 volts
+----------          ADC 7246       ---------
+DO :19.862555 
+[0] Raw ADC value: 7264, voltage: 0.9080 volts
+[0] Raw ADC value: 7343, voltage: 0.9179 volts
+[0] Raw ADC value: 7183, voltage: 0.8979 volts
+----------          ADC 7264       ---------
+DO :19.732750 
+[0] Raw ADC value: 7336, voltage: 0.9170 volts
+[0] Raw ADC value: 7296, voltage: 0.9120 volts
+[0] Raw ADC value: 7100, voltage: 0.8875 volts
+----------          ADC 7296       ---------
+DO :19.501987 
+[0] Raw ADC value: 7343, voltage: 0.9179 volts
+[0] Raw ADC value: 7216, voltage: 0.9020 volts
+[0] Raw ADC value: 7097, voltage: 0.8872 volts
+----------          ADC 7216       ---------
+DO :20.078894 
+[0] Raw ADC value: 7335, voltage: 0.9169 volts
+[0] Raw ADC value: 7244, voltage: 0.9055 volts
+[0] Raw ADC value: 7335, voltage: 0.9169 volts
+----------          ADC 7335       ---------
+DO :19.220749 
+[0] Raw ADC value: 7121, voltage: 0.8902 volts
+[0] Raw ADC value: 7261, voltage: 0.9077 volts
+[0] Raw ADC value: 7285, voltage: 0.9107 volts
+----------          ADC 7261       ---------
+DO :19.754383 
+[0] Raw ADC value: 7150, voltage: 0.8938 volts
+[0] Raw ADC value: 7229, voltage: 0.9037 volts
+[0] Raw ADC value: 7270, voltage: 0.9088 volts
+----------          ADC 7229       ---------
+DO :19.985142 
+[0] Raw ADC value: 7169, voltage: 0.8962 volts
+[0] Raw ADC value: 7266, voltage: 0.9083 volts
+[0] Raw ADC value: 7148, voltage: 0.8935 volts
+----------          ADC 7169       ---------
+DO :20.417816 
+[0] Raw ADC value: 7290, voltage: 0.9113 volts
+[0] Raw ADC value: 7114, voltage: 0.8893 volts
+[0] Raw ADC value: 7131, voltage: 0.8914 volts
+----------          ADC 7131       ---------
+DO :20.691853 
+[0] Raw ADC value: 7255, voltage: 0.9069 volts
+[0] Raw ADC value: 7180, voltage: 0.8975 volts
+[0] Raw ADC value: 7179, voltage: 0.8974 volts
+----------          ADC 7180       ---------
+DO :20.338497 
+[0] Raw ADC value: 7281, voltage: 0.9102 volts
+[0] Raw ADC value: 7102, voltage: 0.8878 volts
+[0] Raw ADC value: 7151, voltage: 0.8939 volts
+----------          ADC 7151       ---------
+DO :20.547626 
+[0] Raw ADC value: 7267, voltage: 0.9084 volts
+[0] Raw ADC value: 7092, voltage: 0.8865 volts
+[0] Raw ADC value: 7325, voltage: 0.9157 volts
+----------          ADC 7267       ---------
+DO :19.711117 
+[0] Raw ADC value: 7179, voltage: 0.8974 volts
+[0] Raw ADC value: 7230, voltage: 0.9038 volts
+[0] Raw ADC value: 7271, voltage: 0.9089 volts
+----------          ADC 7230       ---------
+DO :19.977932 
+[0] Raw ADC value: 7170, voltage: 0.8963 volts
+[0] Raw ADC value: 7253, voltage: 0.9067 volts
+[0] Raw ADC value: 7280, voltage: 0.9100 volts

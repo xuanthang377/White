@@ -1,0 +1,52 @@
+-- Existing sdkconfig 'E:/mcu1/sdkconfig' renamed to 'E:/mcu1/sdkconfig.old'.
+-- Found Git: E:/Embedded/Espressif/tools/idf-git/2.44.0/cmd/git.exe (found version "2.44.0.windows.1") 
+-- ccache will be used for faster recompilation
+-- The C compiler identification is GNU 12.2.0
+-- The CXX compiler identification is GNU 12.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: E:/Embedded/Espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc.exe
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: E:/Embedded/Espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: E:/Embedded/Espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- git rev-parse returned 'fatal: not a git repository (or any of the parent directories): .git'
+-- Could not use 'git describe' to determine PROJECT_VER.
+-- Building ESP-IDF components for target esp32s3
+Processing 2 dependencies:
+[1/2] idf (5.1.4)
+[2/2] protocol_examples_common (*)
+-- Project sdkconfig file E:/mcu1/sdkconfig
+Loading defaults file E:/mcu1/sdkconfig.defaults...
+E:/mcu1/sdkconfig.defaults:28 CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240 was replaced with CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240
+E:/mcu1/sdkconfig.defaults:29 CONFIG_ESP32S3_DEFAULT_CPU_FREQ_MHZ was replaced with CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of time_t
+-- Check size of time_t - done
+-- Found Python3: E:/Embedded/Espressif/python_env/idf5.1_py3.11_env/Scripts/python.exe (found version "3.11.2") found components: Interpreter 
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- App "ili9340" version: 1
+-- Adding linker script E:/mcu1/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_system/ld/esp32s3/sections.ld.in
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_rom/esp32s3/ld/esp32s3.rom.libgcc.ld
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_rom/esp32s3/ld/esp32s3.rom.newlib.ld
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_rom/esp32s3/ld/esp32s3.rom.version.ld
+-- Adding linker script E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/soc/esp32s3/ld/esp32s3.peripherals.ld
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash openthread partition_table perfmon protobuf-c protocol_examples_common protocomm pthread sdmmc soc spi_flash spiffs tcp_transport touch_element ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/app_trace E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/app_update E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/bootloader E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/bootloader_support E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/bt E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/cmock E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/console E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/cxx E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/driver E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/efuse E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp-tls E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_adc E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_app_format E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_coex E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_common E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_eth E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_event E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_gdbstub E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_hid E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_http_client E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_http_server E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_https_ota E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_https_server E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_hw_support E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_lcd E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_local_ctrl E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_mm E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_netif E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_netif_stack E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_partition E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_phy E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_pm E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_psram E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_ringbuf E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_rom E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_system E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_timer E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esp_wifi E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/espcoredump E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/esptool_py E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/fatfs E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/freertos E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/hal E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/heap E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/http_parser E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/idf_test E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/ieee802154 E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/json E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/log E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/lwip E:/mcu1/main E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/mbedtls E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/mqtt E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/newlib E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/nvs_flash E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/openthread E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/partition_table E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/perfmon E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/protobuf-c E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/examples/common_components/protocol_examples_common E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/protocomm E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/pthread E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/sdmmc E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/soc E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/spi_flash E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/spiffs E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/tcp_transport E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/touch_element E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/ulp E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/unity E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/usb E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/vfs E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/wear_levelling E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/wifi_provisioning E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/wpa_supplicant E:/Embedded/Espressif/frameworks/esp-idf-v5.1.4/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/mcu1/build
